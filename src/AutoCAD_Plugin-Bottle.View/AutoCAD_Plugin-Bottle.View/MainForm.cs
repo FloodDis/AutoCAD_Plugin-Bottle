@@ -197,5 +197,13 @@ namespace AutoCAD_Plugin_Bottle.View
 			}
 			e.Handled = true;*/
 		}
+
+		private void CreateButton_Click(object sender, EventArgs e)
+		{
+			string message = "Высота горлышка должна быть равна или меньше четверти высоты основной части.\n";
+			message += "Радиус горлышка должен быть равен или меньше половины длины.\n";
+			message += "Радиус горлышка должен быть равен или меньше половины ширины.\n";
+			MessageBox.Show(message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
 	}
 }
