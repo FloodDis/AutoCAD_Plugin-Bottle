@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoCAD_Plugin_Bottle.Model;
+using Autodesk.AutoCAD.DatabaseServices;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AutoCAD_Plugin_Bottle.Model;
 
 namespace AutoCAD_Plugin_Bottle.View
 {
@@ -17,9 +18,31 @@ namespace AutoCAD_Plugin_Bottle.View
 	public partial class MainForm : Form
 	{
 		/// <summary>
-		/// Бутылка.
+		/// Словарь ошибок.
 		/// </summary>
-		private Bottle _bottle = new Bottle();
+		private Dictionary<string, string> _errorDictionary = new Dictionary<string, string>();
+
+		/// <summary>
+		/// Словарь текстбоксов.
+		/// </summary>
+		private Dictionary<ParameterType, TextBox> _parameterControls = new Dictionary<ParameterType, TextBox>()
+		{
+			{ParameterType.Length, null },
+			{ParameterType.Width, null },
+			{ParameterType.MainHeight, null },
+			{ParameterType.NeckHeight, null },
+			{ParameterType.NeckRadius, null },
+		};
+
+		/// <summary>
+		/// Параметры модели
+		/// </summary>
+		private Parameters _parameters;
+
+		/// <summary>
+		/// Транзакция.
+		/// </summary>
+		private Transaction _transaction;
 
 		/// <summary>
 		/// Цвет элементов формы при отсутствии ошибок.
@@ -31,21 +54,18 @@ namespace AutoCAD_Plugin_Bottle.View
 		/// </summary>
 		private Color _errorColor = Color.LightPink;
 
-		/// <summary>
-		/// Словарь ошибок.
-		/// </summary>
-		private Dictionary<string, string> _errorDictionary = new Dictionary<string, string>()
-		{
-			{nameof(Model.Bottle.Length), "" },
-			{nameof(Model.Bottle.Width), "" },
-			{nameof(Model.Bottle.MainHeight), "" },
-			{nameof(Model.Bottle.NeckHeight), "" },
-			{nameof(Model.Bottle.NeckRadius), "" }
-		};
-
 		public MainForm()
 		{
 			InitializeComponent();
+		}
+
+		/// <summary>
+		/// Свойство транзакции.
+		/// </summary>
+		public Transaction Transaction
+		{
+			get;
+			set;
 		}
 
 		/// <summary>
@@ -85,108 +105,58 @@ namespace AutoCAD_Plugin_Bottle.View
 		}
 
 		/// <summary>
-		/// Присваивает введеную в поле длину в соответствующее
-		/// поле класса и валидирует его.
+		/// Проверяет тип текстбокса.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LengthTextBox_TextChanged(object sender, EventArgs e)
+		/// <param name="textBox">Текстбокс.</param>
+		/// <returns>Тип параметра.</returns>
+		private ParameterType CheckTextBoxType(TextBox textBox)
 		{
-			/*try
+			switch (textBox.Name)
 			{
-				_bottle.Length = double.Parse(LengthTextBox.Text);
-				LengthTextBox.BackColor = _defaultColor;
-				_errorDictionary[nameof(Bottle.Length)] = "";
+				case "LengthTextBox":
+					{
+						return ParameterType.Length;
+					};
+				case "WidthTextBox":
+					{
+						return ParameterType.Width;
+					};
+				case "MainHeightTextBox":
+					{
+						return ParameterType.MainHeight;
+					};
+				case "NeckHeightTextBox":
+					{
+						return ParameterType.NeckHeight;
+					};
+				case "RadiusTextBox":
+					{
+						return ParameterType.NeckRadius;
+					};
+				default: return ParameterType.NeckRadius;
 			}
-			catch (ArgumentException ex)
-			{
-				_errorDictionary[nameof(Bottle.Length)] = ex.Message;
-				LengthTextBox.BackColor = _errorColor;
-			}*/
 		}
 
 		/// <summary>
-		/// Присваивает введеную в поле ширину в соответствующее
-		/// поле класса и валидирует его.
+		/// Обработчик события ввода текста в текстбокс.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void WidthTextBox_TextChanged(object sender, EventArgs e)
+		private void OnTextChanged(object sender, EventArgs e)
 		{
-			/*try
+			try
 			{
-				_bottle.Width = double.Parse(WidthTextBox.Text);
-				WidthTextBox.BackColor = _defaultColor;
-				_errorDictionary[nameof(Bottle.Width)] = "";
+				ParameterType currentParameter = CheckTextBoxType((TextBox)sender);
+				_parameterControls[currentParameter] = (TextBox)sender;
+				_parameters.ParameterDictionary[currentParameter].Value =
+					double.Parse(_parameterControls[currentParameter].Text);
+				_parameters.ValidateDependentParameters();
 			}
 			catch (ArgumentException ex)
 			{
-				_errorDictionary[nameof(Bottle.Width)] = ex.Message;
-				WidthTextBox.BackColor = _errorColor;
-			}*/
-		}
-
-		/// <summary>
-		/// Присваивает введеную в поле высоту основной части в соответствующее
-		/// поле класса и валидирует его.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void MainHeightTextBox_TextChanged(object sender, EventArgs e)
-		{
-			/*try
-			{
-				_bottle.MainHeight = double.Parse(MainHeightTextBox.Text);
-				MainHeightTextBox.BackColor = _defaultColor;
-				_errorDictionary[nameof(Bottle.MainHeight)] = "";
+				ParameterType currentParameter = CheckTextBoxType((TextBox)sender);
+				_parameterControls[currentParameter] = (TextBox)sender;
 			}
-			catch (ArgumentException ex)
-			{
-				_errorDictionary[nameof(Bottle.MainHeight)] = ex.Message;
-				MainHeightTextBox.BackColor = _errorColor;
-			}*/
-		}
-
-		/// <summary>
-		/// Присваивает введеную в поле высоту горлышка в соответствующее
-		/// поле класса и валидирует его.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void NeckHeightTextBox_TextChanged(object sender, EventArgs e)
-		{
-			/*try
-			{
-				_bottle.NeckHeight = double.Parse(NeckHeightTextBox.Text);
-				NeckHeightTextBox.BackColor = _defaultColor;
-				_errorDictionary[nameof(Bottle.NeckHeight)] = "";
-			}
-			catch (ArgumentException ex)
-			{
-				_errorDictionary[nameof(Bottle.NeckHeight)] = ex.Message;
-				NeckHeightTextBox.BackColor = _errorColor;
-			}*/
-		}
-
-		/// <summary>
-		/// Присваивает введеный в поле радиус горлышка в соответствующее
-		/// поле класса и валидирует его.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void NeckRadiusTextBox_TextChanged(object sender, EventArgs e)
-		{
-			/*try
-			{
-				_bottle.NeckRadius = double.Parse(NeckRadiusTextBox.Text);
-				NeckRadiusTextBox.BackColor = _defaultColor;
-				_errorDictionary[nameof(Bottle.NeckRadius)] = "";
-			}
-			catch (ArgumentException ex)
-			{
-				_errorDictionary[nameof(Bottle.NeckRadius)] = ex.Message;
-				NeckRadiusTextBox.BackColor = _errorColor;
-			}*/
 		}
 
 		private void LengthTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -200,10 +170,7 @@ namespace AutoCAD_Plugin_Bottle.View
 
 		private void CreateButton_Click(object sender, EventArgs e)
 		{
-			string message = "Высота горлышка должна быть равна или меньше четверти высоты основной части.\n";
-			message += "Радиус горлышка должен быть равен или меньше половины длины.\n";
-			message += "Радиус горлышка должен быть равен или меньше половины ширины.\n";
-			MessageBox.Show(message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
 		}
 	}
 }

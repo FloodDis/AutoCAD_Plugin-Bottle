@@ -100,57 +100,52 @@
 			// 
 			this.LengthTextBox.BackColor = System.Drawing.Color.White;
 			this.LengthTextBox.Location = new System.Drawing.Point(233, 32);
-			this.LengthTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.LengthTextBox.Margin = new System.Windows.Forms.Padding(4);
 			this.LengthTextBox.Name = "LengthTextBox";
 			this.LengthTextBox.Size = new System.Drawing.Size(96, 22);
 			this.LengthTextBox.TabIndex = 5;
-			this.LengthTextBox.Text = "15";
-			this.LengthTextBox.TextChanged += new System.EventHandler(this.LengthTextBox_TextChanged);
+			this.LengthTextBox.TextChanged += new System.EventHandler(this.OnTextChanged);
 			this.LengthTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LengthTextBox_KeyPress);
 			// 
 			// WidthTextBox
 			// 
 			this.WidthTextBox.BackColor = System.Drawing.Color.White;
 			this.WidthTextBox.Location = new System.Drawing.Point(233, 73);
-			this.WidthTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.WidthTextBox.Margin = new System.Windows.Forms.Padding(4);
 			this.WidthTextBox.Name = "WidthTextBox";
 			this.WidthTextBox.Size = new System.Drawing.Size(96, 22);
 			this.WidthTextBox.TabIndex = 6;
-			this.WidthTextBox.Text = "30";
-			this.WidthTextBox.TextChanged += new System.EventHandler(this.WidthTextBox_TextChanged);
+			this.WidthTextBox.TextChanged += new System.EventHandler(this.OnTextChanged);
 			// 
 			// MainHeightTextBox
 			// 
 			this.MainHeightTextBox.BackColor = System.Drawing.Color.White;
 			this.MainHeightTextBox.Location = new System.Drawing.Point(233, 114);
-			this.MainHeightTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.MainHeightTextBox.Margin = new System.Windows.Forms.Padding(4);
 			this.MainHeightTextBox.Name = "MainHeightTextBox";
 			this.MainHeightTextBox.Size = new System.Drawing.Size(96, 22);
 			this.MainHeightTextBox.TabIndex = 7;
-			this.MainHeightTextBox.Text = "10";
-			this.MainHeightTextBox.TextChanged += new System.EventHandler(this.MainHeightTextBox_TextChanged);
+			this.MainHeightTextBox.TextChanged += new System.EventHandler(this.OnTextChanged);
 			// 
 			// NeckHeightTextBox
 			// 
-			this.NeckHeightTextBox.BackColor = System.Drawing.Color.LightCoral;
+			this.NeckHeightTextBox.BackColor = System.Drawing.Color.White;
 			this.NeckHeightTextBox.Location = new System.Drawing.Point(233, 155);
-			this.NeckHeightTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.NeckHeightTextBox.Margin = new System.Windows.Forms.Padding(4);
 			this.NeckHeightTextBox.Name = "NeckHeightTextBox";
 			this.NeckHeightTextBox.Size = new System.Drawing.Size(96, 22);
 			this.NeckHeightTextBox.TabIndex = 8;
-			this.NeckHeightTextBox.Text = "20";
-			this.NeckHeightTextBox.TextChanged += new System.EventHandler(this.NeckHeightTextBox_TextChanged);
+			this.NeckHeightTextBox.TextChanged += new System.EventHandler(this.OnTextChanged);
 			// 
 			// NeckRadiusTextBox
 			// 
-			this.NeckRadiusTextBox.BackColor = System.Drawing.Color.LightCoral;
+			this.NeckRadiusTextBox.BackColor = System.Drawing.Color.White;
 			this.NeckRadiusTextBox.Location = new System.Drawing.Point(233, 202);
-			this.NeckRadiusTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.NeckRadiusTextBox.Margin = new System.Windows.Forms.Padding(4);
 			this.NeckRadiusTextBox.Name = "NeckRadiusTextBox";
 			this.NeckRadiusTextBox.Size = new System.Drawing.Size(96, 22);
 			this.NeckRadiusTextBox.TabIndex = 9;
-			this.NeckRadiusTextBox.Text = "18";
-			this.NeckRadiusTextBox.TextChanged += new System.EventHandler(this.NeckRadiusTextBox_TextChanged);
+			this.NeckRadiusTextBox.TextChanged += new System.EventHandler(this.OnTextChanged);
 			// 
 			// LengthRangeLabel
 			// 
@@ -205,7 +200,7 @@
 			// CreateButton
 			// 
 			this.CreateButton.Location = new System.Drawing.Point(167, 249);
-			this.CreateButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.CreateButton.Margin = new System.Windows.Forms.Padding(4);
 			this.CreateButton.Name = "CreateButton";
 			this.CreateButton.Size = new System.Drawing.Size(141, 43);
 			this.CreateButton.TabIndex = 15;
