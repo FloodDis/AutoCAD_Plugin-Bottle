@@ -84,7 +84,7 @@ namespace AutoCAD_Plugin_Bottle.View
 		/// Проверяет правильность введенных данных.
 		/// </summary>
 		/// <returns>true - ошибок нет, false - есть ошибки при введении данных.</returns>
-		private bool CheckFormOnErrors()
+		private bool CheckOnErrors()
 		{
 			string allErrors = "";
 
