@@ -20,7 +20,7 @@ namespace AutoCAD_Plugin_Bottle.View
 		/// <summary>
 		/// Словарь ошибок.
 		/// </summary>
-		private Dictionary<string, string> _errorDictionary = new Dictionary<string, string>();
+		private Dictionary<string, string> _errors = new Dictionary<string, string>();
 
 		/// <summary>
 		/// Словарь текстбоксов.
@@ -88,7 +88,7 @@ namespace AutoCAD_Plugin_Bottle.View
 		{
 			string allErrors = "";
 
-			foreach (var error in _errorDictionary)
+			foreach (var error in _errors)
 			{
 				if (error.Value != "")
 				{
