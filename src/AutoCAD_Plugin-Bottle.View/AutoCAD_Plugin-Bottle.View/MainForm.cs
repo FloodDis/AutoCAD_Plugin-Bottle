@@ -151,21 +151,14 @@ namespace AutoCAD_Plugin_Bottle.View
 				_parameters.ParameterDictionary[currentParameter].Value =
 					double.Parse(_parameterControls[currentParameter].Text);
 				_parameters.ValidateDependentParameters();
+				_parameterControls[currentParameter].BackColor = _defaultColor;
 			}
 			catch (ArgumentException ex)
 			{
 				ParameterType currentParameter = CheckTextBoxType((TextBox)sender);
 				_parameterControls[currentParameter] = (TextBox)sender;
+				_parameterControls[currentParameter].BackColor = _errorColor;
 			}
-		}
-
-		private void LengthTextBox_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			/*if (e.KeyChar >= '0' && e.KeyChar <= '9')
-			{
-				return;
-			}
-			e.Handled = true;*/
 		}
 
 		private void CreateButton_Click(object sender, EventArgs e)

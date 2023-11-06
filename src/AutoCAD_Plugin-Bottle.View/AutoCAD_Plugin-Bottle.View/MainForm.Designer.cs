@@ -105,7 +105,6 @@
 			this.LengthTextBox.Size = new System.Drawing.Size(96, 22);
 			this.LengthTextBox.TabIndex = 5;
 			this.LengthTextBox.TextChanged += new System.EventHandler(this.OnTextChanged);
-			this.LengthTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LengthTextBox_KeyPress);
 			// 
 			// WidthTextBox
 			// 
