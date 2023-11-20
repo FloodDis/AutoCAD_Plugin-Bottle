@@ -1,60 +1,78 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AutoCAD_Plugin_Bottle.Model
+﻿namespace AutoCAD_Plugin_Bottle.Model
 {
-	/// <summary>
-	/// Параметры модели бутылки.
-	/// </summary>
-	public class Parameters
-	{
-		/// <summary>
-		/// Словарь параметров.
-		/// </summary>
-		private Dictionary<ParameterType, Parameter> _parameterDictionary;
+    using System;
+    using System.Collections.Generic;
 
-		/// <summary>
-		/// Свойство словаря параметров.
-		/// </summary>
-		public Dictionary<ParameterType, Parameter> ParameterDictionary
-		{
-			get { return _parameterDictionary; }
-		}
+    /// <summary>
+    /// Параметры модели бутылки.
+    /// </summary>
+    public class Parameters
+    {
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
+        public Parameters()
+        {
+            ParameterDictionary = new Dictionary<BottleParameterType, Parameter>
+            {
+                { BottleParameterType.Length, new Parameter(BottleParameterType.Length) },
+                { BottleParameterType.Width, new Parameter(BottleParameterType.Width) },
+                { BottleParameterType.MainHeight, new Parameter(BottleParameterType.MainHeight) },
+                { BottleParameterType.NeckHeight, new Parameter(BottleParameterType.NeckHeight) },
+                { BottleParameterType.NeckRadius, new Parameter(BottleParameterType.NeckRadius) }
+            };
+        }
 
-		/// <summary>
-		/// Валидирует зависимые параметры.
-		/// </summary>
-		/// <exception cref="ArgumentException"></exception>
-		public void ValidateDependentParameters()
-		{
-			Parameter neckHeight = _parameterDictionary[ParameterType.NeckHeight];
-			Parameter mainHeight = _parameterDictionary[ParameterType.MainHeight];
-			Parameter neckRadius = _parameterDictionary[ParameterType.NeckRadius];
-			Parameter width = _parameterDictionary[ParameterType.Width];
-			Parameter length = _parameterDictionary[ParameterType.Length];
+        /// <summary>
+        /// Авто свойство словаря параметров.
+        /// </summary>
+        public Dictionary<BottleParameterType, Parameter> ParameterDictionary { get; private set; }
 
-			var message = "";
+        /// <summary>
+        /// Валидирует высоту горлышка бутылки как зависимый параметр.
+        /// </summary>
+        public void ValidateNeckHeight()
+        {
+            string message;
 
-			if (neckHeight.Value > mainHeight.Value / 4)
-			{
-				message += "Высота горлышка должна быть минимум в 4 раза меньше высоты основной части\n";
-			}
-			if (neckRadius.Value > width.Value / 2)
-			{
-				message += "Радиус горлышка должны быть минимум в 2 раза меньше ширины основной части\n";
-			}
-			if (neckRadius.Value > length.Value / 2)
-			{
-				message += "Радиус горлышка должны быть минимум в 2 раза меньше длины основной части\n";
-			}
+            Parameter neckHeight = ParameterDictionary[BottleParameterType.NeckHeight];
+            Parameter mainHeight = ParameterDictionary[BottleParameterType.MainHeight];
 
-			if (message != "")
-			{
-				throw new ArgumentException(message);
-			}
-		}
-	}
+            if (neckHeight.Value > mainHeight.Value / 4)
+            {
+                message = "• Высота горлышка должна быть минимум"
+                          + " в 4 раза меньше высоты основной части.\n";
+                throw new ArgumentException(message);
+            }
+        }
+
+        /// <summary>
+        /// Валидирует радиус горлышка как зависимый параметр.
+        /// </summary>
+        public void ValidateNeckRadius()
+        {
+            string message = "";
+
+            Parameter neckRadius = ParameterDictionary[BottleParameterType.NeckRadius];
+            Parameter width = ParameterDictionary[BottleParameterType.Width];
+            Parameter length = ParameterDictionary[BottleParameterType.Length];
+
+            if (neckRadius.Value > width.Value / 2)
+            {
+                message += "• Радиус горлышка должен быть минимум" +
+                           " в 2 раза меньше ширины основной части.\n";
+            }
+
+            if (neckRadius.Value > length.Value / 2)
+            {
+                message += "• Радиус горлышка должен быть минимум" +
+                           " в 2 раза меньше длины основной части.\n";
+            }
+
+            if (message != "")
+            {
+                throw new ArgumentException(message);
+            }
+        }
+    }
 }

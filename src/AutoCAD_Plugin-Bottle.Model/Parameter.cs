@@ -1,76 +1,142 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AutoCAD_Plugin_Bottle.Model
+﻿namespace AutoCAD_Plugin_Bottle.Model
 {
-	/// <summary>
-	/// Параметр.
-	/// </summary>
-	public class Parameter
+    using System;
+
+    /// <summary>
+    /// Параметр.
+    /// </summary>
+    public class Parameter
 	{
-		/// <summary>
-		/// Максимальное значение параметра.
-		/// </summary>
-		private double _maxValue;
+        /// <summary>
+        /// Тип параметра.
+        /// </summary>
+        private readonly BottleParameterType _parameterType;
 
-		/// <summary>
-		/// Минимальное значение параметра.
-		/// </summary>
-		private double _minValue;
+        /// <summary>
+        /// Значение параметра.
+        /// </summary>
+        private double _value;
 
-		/// <summary>
-		/// Значение параметра.
-		/// </summary>
-		private double _value;
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
+        /// <param name="parameterType">Тип параметра.</param>
+        public Parameter(BottleParameterType parameterType)
+        {
+            _parameterType = parameterType;
+            switch (_parameterType)
+            {
+                case BottleParameterType.Length:
+                {
+                    MinValue = 10;
+                    MaxValue = 250;
+                    break;
+                }
 
-		/// <summary>
-		/// Свойство максимального значения параметра.
-		/// </summary>
-		public double MaxValue
-		{
-			get { return _maxValue; }
+                case BottleParameterType.Width:
+                {
+                    MinValue = 10;
+                    MaxValue = 250;
+                    break;
+                }
+
+                case BottleParameterType.MainHeight:
+                {
+                    MinValue = 10;
+                    MaxValue = 250;
+                    break;
+                }
+
+                case BottleParameterType.NeckHeight:
+                {
+                    MinValue = 10;
+                    MaxValue = 40;
+                    break;
+                }
+
+                case BottleParameterType.NeckRadius:
+                {
+                    MinValue = 5;
+                    MaxValue = 20;
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Авто свойство максимального значения параметра.
+        /// </summary>
+        public double MaxValue { get; set; }
+
+        /// <summary>
+        /// Авто свойство минимального значения параметра.
+        /// </summary>
+        public double MinValue { get; set; }
+
+        /// <summary>
+        /// Свойство параметра.
+        /// </summary>
+        public double Value
+        {
+            get => _value;
 			set
 			{
-				_maxValue = value;
-			}
-		}
-
-		/// <summary>
-		/// Свойство минмиального значения параметра.
-		/// </summary>
-		public double MinValue
-		{
-			get { return _minValue; }
-			set
-			{
-				_minValue = value;
-			}
-		}
-
-		/// <summary>
-		/// Свойство параметра.
-		/// </summary>
-		public double Value
-		{
-			get { return _value; }
-			set
-			{
-				Validate();
+				Validate(value);
 				_value = value;
 			}
 		}
 
+        /// <summary>
+        /// Возвращает название параметра
+        /// </summary>
+        /// <param name="parameterType"></param>
+        /// <returns></returns>
+        private string GetNameOfParamter()
+        {
+            switch (_parameterType)
+            {
+                case BottleParameterType.Length:
+                {
+                    return "Длина должна";
+                }
+
+                case BottleParameterType.Width:
+                {
+                    return "Ширина должна";
+                }
+
+                case BottleParameterType.MainHeight:
+                {
+                    return "Высота основной части должна";
+                }
+
+                case BottleParameterType.NeckHeight:
+                {
+                    return "Высота горлышка должна";
+                }
+
+                case BottleParameterType.NeckRadius:
+                {
+                    return "Радиус горлышка должен";
+                }
+
+                default:
+                {
+                    return "";
+                }
+            }
+        }
+
 		/// <summary>
 		/// Валидирует параметр.
 		/// </summary>
-		private void Validate()
+		private void Validate(double value)
 		{
-			if (_value < _minValue || _value > _maxValue)
-			{
-				throw new ArgumentException($"Параметр должен быть в диапазоне {_minValue}-{_maxValue}.");
+			if (value < MinValue || value > MaxValue)
+            {
+                string parameterName = GetNameOfParamter();
+				throw new ArgumentException(
+                    $"• {parameterName} быть в диапазоне {MinValue}-{MaxValue}.\n");
 			}
 		}
 	}

@@ -46,7 +46,8 @@
     <Reference Include="AcDx">
       <HintPath>..\..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcDx.dll</HintPath>
     </Reference>
-    <Reference Include="AcMgd">
+    <Reference Include="AcMgd, Version=24.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcMgd.dll</HintPath>
     </Reference>
     <Reference Include="AcMr">
@@ -91,10 +92,16 @@
     <Compile Include="Builder.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Parameters.cs" />
-    <Compile Include="ParameterType.cs" />
+    <Compile Include="BottleParameterType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SketchBuilder.cs" />
-    <Compile Include="Wrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\AutoCAD_Plugin-Bottle.View\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\AutoCAD_Plugin-Bottle.View\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
