@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Windows.Forms;
     using AutoCAD_Plugin_Bottle.Model;
-    using Autodesk.AutoCAD.DatabaseServices;
 
     /// <summary>
     /// Форма для задания параметров бутылки.
@@ -80,11 +79,6 @@
             _parameterControls[BottleParameterType.NeckHeight] = NeckHeightTextBox;
             _parameterControls[BottleParameterType.NeckRadius] = NeckRadiusTextBox;
         }
-
-        /// <summary>
-        /// Авто свойство транзакции.
-        /// </summary>
-        public Transaction CurrentTransaction { get; set; }
 
         /// <summary>
         /// Очищает поля элементов на форме.
@@ -237,7 +231,6 @@
                     throw new AggregateException(_exceptionsDictionary[currentParameter]);
                 }
 
-                _exceptionsDictionary[currentParameter].Clear();
                 _errors[currentParameter] = "";
                 _parameterControls[currentParameter].BackColor = _defaultColor;
             }
@@ -281,7 +274,7 @@
                 return;
             }
 
-            Builder.BuildBottle(_parameters, CurrentTransaction);
+            Builder.BuildBottle(_parameters);
             ClearForm();
         }
     }

@@ -99,6 +99,7 @@
             // LengthTextBox
             // 
             this.LengthTextBox.BackColor = System.Drawing.Color.White;
+            this.LengthTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LengthTextBox.Location = new System.Drawing.Point(233, 32);
             this.LengthTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.LengthTextBox.Name = "LengthTextBox";
@@ -110,6 +111,7 @@
             // WidthTextBox
             // 
             this.WidthTextBox.BackColor = System.Drawing.Color.White;
+            this.WidthTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.WidthTextBox.Location = new System.Drawing.Point(233, 73);
             this.WidthTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.WidthTextBox.Name = "WidthTextBox";
@@ -121,6 +123,7 @@
             // MainHeightTextBox
             // 
             this.MainHeightTextBox.BackColor = System.Drawing.Color.White;
+            this.MainHeightTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.MainHeightTextBox.Location = new System.Drawing.Point(233, 114);
             this.MainHeightTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.MainHeightTextBox.Name = "MainHeightTextBox";
@@ -132,6 +135,7 @@
             // NeckHeightTextBox
             // 
             this.NeckHeightTextBox.BackColor = System.Drawing.Color.White;
+            this.NeckHeightTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.NeckHeightTextBox.Location = new System.Drawing.Point(233, 155);
             this.NeckHeightTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.NeckHeightTextBox.Name = "NeckHeightTextBox";
@@ -143,6 +147,7 @@
             // NeckRadiusTextBox
             // 
             this.NeckRadiusTextBox.BackColor = System.Drawing.Color.White;
+            this.NeckRadiusTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.NeckRadiusTextBox.Location = new System.Drawing.Point(233, 202);
             this.NeckRadiusTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.NeckRadiusTextBox.Name = "NeckRadiusTextBox";
@@ -203,13 +208,15 @@
             // 
             // CreateButton
             // 
+            this.CreateButton.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.CreateButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.CreateButton.Location = new System.Drawing.Point(167, 249);
             this.CreateButton.Margin = new System.Windows.Forms.Padding(4);
             this.CreateButton.Name = "CreateButton";
             this.CreateButton.Size = new System.Drawing.Size(141, 43);
             this.CreateButton.TabIndex = 15;
             this.CreateButton.Text = "Построить";
-            this.CreateButton.UseVisualStyleBackColor = true;
+            this.CreateButton.UseVisualStyleBackColor = false;
             this.CreateButton.Click += new System.EventHandler(this.CreateButton_Click);
             // 
             // MainForm

@@ -89,8 +89,7 @@
         /// <summary>
         /// Возвращает название параметра
         /// </summary>
-        /// <param name="parameterType"></param>
-        /// <returns></returns>
+        /// <returns>Название переменной.</returns>
         private string GetNameOfParamter()
         {
             switch (_parameterType)

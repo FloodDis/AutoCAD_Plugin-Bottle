@@ -15,12 +15,24 @@
         /// <param name="normal">Нормаль окружности.</param>
         /// <param name="radius">Радиус окружности.</param>
         /// <returns>Созданная окружность.</returns>
-        public static Region CreateCircle(Point3d center, Vector3d normal, double radius)
+        public static Region CreateCircle(Point3d center, double radius)
 		{
-			Circle newCircle = new Circle(center, normal, radius);
+            Polyline newCircle = new Polyline();
+            newCircle.AddVertexAt(
+                0,
+                new Point2d(center.X + radius, center.Y),
+                1.0,
+                0.0,
+                0.0);
+            newCircle.AddVertexAt(
+                1,
+                new Point2d(center.X - radius, center.Y),
+                1.0,
+                0.0,
+                0.0);
+            newCircle.Elevation = center.Z;
+            newCircle.Closed = true;
 
-			// DBObjectCollection curves = new DBObjectCollection();
-			// DBObjectCollection regions = new DBObjectCollection();
             using (DBObjectCollection curves = new DBObjectCollection())
             {
                 curves.Add(newCircle);
@@ -43,23 +55,18 @@
         public static Region CreateRectangle(double width, double length, double offset = 0)
 		{
 			Point3d[] polylinePoints = new Point3d[4];
-			double[] dblBulges = new double[3];
 
 			polylinePoints[0] = new Point3d(width - offset, offset, offset);
 			polylinePoints[1] = new Point3d(width - offset, length - offset, offset);
 			polylinePoints[2] = new Point3d(offset, length - offset, offset);
 			polylinePoints[3] = new Point3d(offset, offset, offset);
 
-			DoubleCollection doubles = new DoubleCollection(dblBulges);
 			Point3dCollection point3DCollection = new Point3dCollection(polylinePoints);
-			Polyline2d outline = new Polyline2d(
-                Poly2dType.SimplePoly,
+			Polyline3d outline = new Polyline3d(
+                Poly3dType.SimplePoly,
                 point3DCollection,
-                0,
-                true,
-                0,
-                0,
-                doubles);
+                true
+                );
 
 			DBObjectCollection curves = new DBObjectCollection();
 			DBObjectCollection regions = new DBObjectCollection();
