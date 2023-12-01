@@ -26,7 +26,7 @@
         /// <summary>
         /// Авто свойство словаря параметров.
         /// </summary>
-        public Dictionary<BottleParameterType, Parameter> ParameterDictionary { get; private set; }
+        public Dictionary<BottleParameterType, Parameter> ParameterDictionary { get; }
 
         /// <summary>
         /// Валидирует высоту горлышка бутылки как зависимый параметр.

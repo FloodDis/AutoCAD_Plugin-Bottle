@@ -87,7 +87,7 @@
 		}
 
         /// <summary>
-        /// Возвращает название параметра
+        /// Возвращает название параметра.
         /// </summary>
         /// <returns>Название переменной.</returns>
         private string GetNameOfParamter()
