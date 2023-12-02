@@ -58,12 +58,10 @@ namespace AutoCAD_Plugin_Bottle.UnitTests
             parameter.MaxValue = 100;
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(
+            Assert.Throws<ArgumentException>(
                 // Act
                 () => parameter.Value = expected
                 );
-            Assert.AreEqual("• Высота основной части должна быть в диапазоне 10-100.\n",
-                exception.Message);
         }
 
         [Test(Description = "Тест свойства поля _value (провальный)(больше максимума")]
@@ -76,12 +74,184 @@ namespace AutoCAD_Plugin_Bottle.UnitTests
             parameter.MaxValue = 100;
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(
+            Assert.Throws<ArgumentException>(
                 // Act
                 () => parameter.Value = expected
                 );
-            Assert.AreEqual("• Высота основной части должна быть в диапазоне 10-100.\n", 
-                exception.Message);
+        }
+
+        [Test(Description =
+                "Тест присваивания _minValue и _maxValue в зависимости от типа параметра (Длина)")]
+        public void DefaultMinMaxLength()
+        {
+            // Arrange & Act
+            var parameter = new Parameter(BottleParameterType.Length);
+            var expectedMin = 10;
+            var expectedMax = 250;
+            var actualMin = parameter.MinValue;
+            var actualMax = parameter.MaxValue;
+
+            // Assert
+            Assert.Multiple(
+                () =>
+                {
+                    Assert.AreEqual(expectedMin, actualMin);
+                    Assert.AreEqual(expectedMax, actualMax);
+                });
+        }
+
+        [Test(Description =
+                "Тест присваивания _minValue и _maxValue в зависимости от типа параметра (Ширина)"
+        )]
+        public void DefaultMinMaxWidth()
+        {
+            // Arrange & Act
+            var parameter = new Parameter(BottleParameterType.Width);
+            var expectedMin = 10;
+            var expectedMax = 250;
+            var actualMin = parameter.MinValue;
+            var actualMax = parameter.MaxValue;
+
+            // Assert
+            Assert.Multiple(
+                () =>
+                {
+                    Assert.AreEqual(expectedMin, actualMin);
+                    Assert.AreEqual(expectedMax, actualMax);
+                });
+        }
+
+        [Test(Description =
+            "Тест присваивания _minValue и _maxValue в зависимости от типа параметра (Высота основной части)"
+        )]
+        public void DefaultMinMaxMainHeight()
+        {
+            // Arrange & Act
+            var parameter = new Parameter(BottleParameterType.MainHeight);
+            var expectedMin = 10;
+            var expectedMax = 250;
+            var actualMin = parameter.MinValue;
+            var actualMax = parameter.MaxValue;
+
+            // Assert
+            Assert.Multiple(
+                () =>
+                {
+                    Assert.AreEqual(expectedMin, actualMin);
+                    Assert.AreEqual(expectedMax, actualMax);
+                });
+        }
+
+        [Test(Description =
+            "Тест присваивания _minValue и _maxValue в зависимости от типа параметра (Высота горлышка)"
+        )]
+        public void DefaultMinMaxNeckHeight()
+        {
+            // Arrange & Act
+            var parameter = new Parameter(BottleParameterType.NeckHeight);
+            var expectedMin = 10;
+            var expectedMax = 40;
+            var actualMin = parameter.MinValue;
+            var actualMax = parameter.MaxValue;
+
+            // Assert
+            Assert.Multiple(
+                () =>
+                {
+                    Assert.AreEqual(expectedMin, actualMin);
+                    Assert.AreEqual(expectedMax, actualMax);
+                });
+        }
+
+        [Test(Description =
+            "Тест присваивания _minValue и _maxValue в зависимости от типа параметра (Радиус горлышка)"
+        )]
+        public void DefaultMinMaxNeckRadius()
+        {
+            // Arrange & Act
+            var parameter = new Parameter(BottleParameterType.NeckRadius);
+            var expectedMin = 5;
+            var expectedMax = 20;
+            var actualMin = parameter.MinValue;
+            var actualMax = parameter.MaxValue;
+
+            // Assert
+            Assert.Multiple(
+                () =>
+                {
+                    Assert.AreEqual(expectedMin, actualMin);
+                    Assert.AreEqual(expectedMax, actualMax);
+                });
+        }
+
+        [Test(Description = 
+            "Тест выводимого сообщения при появлении исключения (Длина)")]
+        public void ExceptionMessageLength()
+        {
+            // Arrange
+            var parameter = new Parameter(BottleParameterType.Length);
+            var expected = "• Длина должна быть в диапазоне 10-250.\n";
+
+            // Assert
+            var exception =
+                Assert.Throws<ArgumentException>(() => parameter.Value = 1);
+            Assert.AreEqual(expected, exception.Message);
+        }
+
+        [Test(Description =
+            "Тест выводимого сообщения при появлении исключения (Ширина)")]
+        public void ExceptionMessageWidth()
+        {
+            // Arrange
+            var parameter = new Parameter(BottleParameterType.Width);
+            var expected = "• Ширина должна быть в диапазоне 10-250.\n";
+
+            // Assert
+            var exception =
+                Assert.Throws<ArgumentException>(() => parameter.Value = 1);
+            Assert.AreEqual(expected, exception.Message);
+        }
+
+        [Test(Description =
+            "Тест выводимого сообщения при появлении исключения (Высота основной части)")]
+        public void ExceptionMessageMainHeight()
+        {
+            // Arrange
+            var parameter = new Parameter(BottleParameterType.MainHeight);
+            var expected = "• Высота основной части должна быть в диапазоне 10-250.\n";
+
+            // Assert
+            var exception =
+                Assert.Throws<ArgumentException>(() => parameter.Value = 1);
+            Assert.AreEqual(expected, exception.Message);
+        }
+
+        [Test(Description =
+            "Тест выводимого сообщения при появлении исключения (Высота горлышка)")]
+        public void ExceptionMessageNeckHeight()
+        {
+            // Arrange
+            var parameter = new Parameter(BottleParameterType.NeckHeight);
+            var expected = "• Высота горлышка должна быть в диапазоне 10-40.\n";
+
+            // Assert
+            var exception =
+                Assert.Throws<ArgumentException>(() => parameter.Value = 1);
+            Assert.AreEqual(expected, exception.Message);
+        }
+
+        [Test(Description =
+            "Тест выводимого сообщения при появлении исключения (Радиус горлышка)")]
+        public void ExceptionMessageNeckRadius()
+        {
+            // Arrange
+            var parameter = new Parameter(BottleParameterType.NeckRadius);
+            var expected = "• Радиус горлышка должен быть в диапазоне 5-20.\n";
+
+            // Assert
+            var exception =
+                Assert.Throws<ArgumentException>(() => parameter.Value = 1);
+            Assert.AreEqual(expected, exception.Message);
         }
     }
 }

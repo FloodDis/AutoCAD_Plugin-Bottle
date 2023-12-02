@@ -90,7 +90,7 @@
         /// Возвращает название параметра.
         /// </summary>
         /// <returns>Название переменной.</returns>
-        private string GetNameOfParamter()
+        private string GetNameOfParameter()
         {
             switch (_parameterType)
             {
@@ -133,7 +133,7 @@
 		{
 			if (value < MinValue || value > MaxValue)
             {
-                string parameterName = GetNameOfParamter();
+                string parameterName = GetNameOfParameter();
 				throw new ArgumentException(
                     $"• {parameterName} быть в диапазоне {MinValue}-{MaxValue}.\n");
 			}
