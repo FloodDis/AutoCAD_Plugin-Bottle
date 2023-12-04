@@ -8,11 +8,6 @@
     public class Parameter
 	{
         /// <summary>
-        /// Тип параметра.
-        /// </summary>
-        private readonly BottleParameterType _parameterType;
-
-        /// <summary>
         /// Значение параметра.
         /// </summary>
         private double _value;
@@ -21,46 +16,10 @@
         /// Конструктор класса.
         /// </summary>
         /// <param name="parameterType">Тип параметра.</param>
-        public Parameter(BottleParameterType parameterType)
+        public Parameter(double minValue, double maxValue)
         {
-            _parameterType = parameterType;
-            switch (_parameterType)
-            {
-                case BottleParameterType.Length:
-                {
-                    MinValue = 10;
-                    MaxValue = 250;
-                    break;
-                }
-
-                case BottleParameterType.Width:
-                {
-                    MinValue = 10;
-                    MaxValue = 250;
-                    break;
-                }
-
-                case BottleParameterType.MainHeight:
-                {
-                    MinValue = 10;
-                    MaxValue = 250;
-                    break;
-                }
-
-                case BottleParameterType.NeckHeight:
-                {
-                    MinValue = 10;
-                    MaxValue = 40;
-                    break;
-                }
-
-                case BottleParameterType.NeckRadius:
-                {
-                    MinValue = 5;
-                    MaxValue = 20;
-                    break;
-                }
-            }
+            MinValue = minValue;
+            MaxValue = maxValue;
         }
 
         /// <summary>
@@ -86,46 +45,6 @@
 			}
 		}
 
-        /// <summary>
-        /// Возвращает название параметра.
-        /// </summary>
-        /// <returns>Название переменной.</returns>
-        private string GetNameOfParameter()
-        {
-            switch (_parameterType)
-            {
-                case BottleParameterType.Length:
-                {
-                    return "Длина должна";
-                }
-
-                case BottleParameterType.Width:
-                {
-                    return "Ширина должна";
-                }
-
-                case BottleParameterType.MainHeight:
-                {
-                    return "Высота основной части должна";
-                }
-
-                case BottleParameterType.NeckHeight:
-                {
-                    return "Высота горлышка должна";
-                }
-
-                case BottleParameterType.NeckRadius:
-                {
-                    return "Радиус горлышка должен";
-                }
-
-                default:
-                {
-                    return "";
-                }
-            }
-        }
-
 		/// <summary>
 		/// Валидирует параметр.
 		/// </summary>
@@ -133,9 +52,8 @@
 		{
 			if (value < MinValue || value > MaxValue)
             {
-                string parameterName = GetNameOfParameter();
 				throw new ArgumentException(
-                    $"• {parameterName} быть в диапазоне {MinValue}-{MaxValue}.\n");
+                    $"Параметр должен быть в диапазоне {MinValue}-{MaxValue}.\n");
 			}
 		}
 	}
