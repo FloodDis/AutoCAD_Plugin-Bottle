@@ -6,7 +6,7 @@
     /// <summary>
     /// Обертка плагина.
     /// </summary>
-    public static class Wrapper
+    public static class Connector
 	{
         /// <summary>
         /// Открывает приложение.

@@ -189,6 +189,8 @@
                 if (_parameterControls[currentParameter].Text == "")
                 {
                     _parameterControls[currentParameter].BackColor = _defaultColor;
+                    _exceptionsDictionary[currentParameter].Clear();
+                    _errors[currentParameter] = "";
                     return;
                 }
 
