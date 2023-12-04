@@ -15,11 +15,11 @@
         /// <param name="parameters">Параметры модели.</param>
         public static void BuildBottle(Parameters parameters)
         {
-            Document currentDocument = Autodesk.AutoCAD.ApplicationServices.
+            var currentDocument = Autodesk.AutoCAD.ApplicationServices.
                 Application.DocumentManager.MdiActiveDocument;
-            using (DocumentLock documentLock = currentDocument.LockDocument())
+            using (var documentLock = currentDocument.LockDocument())
             {
-                using (Transaction transaction = Autodesk.AutoCAD.
+                using (var transaction = Autodesk.AutoCAD.
                     ApplicationServices.Application.DocumentManager.
                     MdiActiveDocument.Database.
                     TransactionManager.StartTransaction())
@@ -33,23 +33,23 @@
                             OpenMode.ForWrite,
                             false,
                             true);
-                    Parameter length =
+                    var length =
                         parameters.ParameterDictionary[BottleParameterType.Length];
-                    Parameter width =
+                    var width =
                         parameters.ParameterDictionary[BottleParameterType.Width];
-                    Parameter mainHeight =
+                    var mainHeight =
                         parameters.ParameterDictionary[BottleParameterType.MainHeight];
-                    Parameter neckRadius =
+                    var neckRadius =
                         parameters.ParameterDictionary[BottleParameterType.NeckRadius];
-                    Parameter neckHeight =
+                    var neckHeight =
                         parameters.ParameterDictionary[BottleParameterType.NeckHeight];
 
-                    Solid3d mainPart = BuildMainPart(
+                    var mainPart = BuildMainPart(
                         length,
                         width,
                         mainHeight,
                         neckRadius);
-                    Solid3d neck = BuildNeck(
+                    var neck = BuildNeck(
                         neckHeight,
                         neckRadius,
                         width,
@@ -81,27 +81,27 @@
             Parameter mainHeight,
             Parameter neckRadius)
         {
-            Region mainRectangle = SketchBuilder.CreateRectangle(
+            var mainRectangle = SketchBuilder.CreateRectangle(
                 width.Value,
                 length.Value);
-            Solid3d mainPart = new Solid3d();
+            var mainPart = new Solid3d();
             mainPart.Extrude(mainRectangle, mainHeight.Value, 0);
 
-            Region shellRectangle = SketchBuilder.CreateRectangle(
+            var shellRectangle = SketchBuilder.CreateRectangle(
                 width.Value,
                 length.Value,
                 2);
-            Solid3d mainShellPart = new Solid3d();
+            var mainShellPart = new Solid3d();
             mainShellPart.Extrude(shellRectangle, mainHeight.Value - 4, 0);
 
-            Point3d center = new Point3d(
+            var center = new Point3d(
                 width.Value / 2,
                 length.Value / 2,
                 mainHeight.Value);
-            Region hole = SketchBuilder.CreateCircle(
+            var hole = SketchBuilder.CreateCircle(
                 center,
                 neckRadius.Value - 2);
-            Solid3d circleShellPart = new Solid3d();
+            var circleShellPart = new Solid3d();
             circleShellPart.Extrude(hole, -2, 0);
 
             mainPart.BooleanOperation(BooleanOperationType.BoolSubtract, mainShellPart);
@@ -126,20 +126,20 @@
             Parameter length,
             Parameter mainHeight)
         {
-            Point3d center = new Point3d(
+            var center = new Point3d(
                 width.Value / 2,
                 length.Value / 2,
                 mainHeight.Value);
-            Region circle = SketchBuilder.CreateCircle(
+            var circle = SketchBuilder.CreateCircle(
                 center,
                 neckRadius.Value);
-            Solid3d neck = new Solid3d();
+            var neck = new Solid3d();
             neck.Extrude(circle, neckHeight.Value, 0);
 
-            Region shellCircle = SketchBuilder.CreateCircle(
+            var shellCircle = SketchBuilder.CreateCircle(
                 center,
                 neckRadius.Value - 2);
-            Solid3d shell = new Solid3d();
+            var shell = new Solid3d();
             shell.Extrude(shellCircle, neckHeight.Value, 0);
 
             neck.BooleanOperation(BooleanOperationType.BoolSubtract, shell);
