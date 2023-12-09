@@ -18,8 +18,8 @@
         private readonly Dictionary<BottleParameterType, string> _errors =
             new Dictionary<BottleParameterType, string>
             {
-                { BottleParameterType.Length, "" },
-                { BottleParameterType.Width, "" },
+                { BottleParameterType.MainPartLength, "" },
+                { BottleParameterType.MainPartWidth, "" },
                 { BottleParameterType.MainHeight, "" },
                 { BottleParameterType.NeckHeight, "" },
                 { BottleParameterType.NeckRadius, "" }
@@ -31,8 +31,8 @@
         private readonly Dictionary<BottleParameterType, string> _parameterNames =
             new Dictionary<BottleParameterType, string>
             {
-                { BottleParameterType.Length, "Длина" },
-                { BottleParameterType.Width, "Ширина" },
+                { BottleParameterType.MainPartLength, "Длина" },
+                { BottleParameterType.MainPartWidth, "Ширина" },
                 { BottleParameterType.MainHeight, "Высота основной части" },
                 { BottleParameterType.NeckHeight, "Высота горлышка" },
                 { BottleParameterType.NeckRadius, "Радиус горлышка" }
@@ -67,8 +67,8 @@
 
             _parameterControls = new Dictionary<BottleParameterType, TextBox>
             {
-                { BottleParameterType.Length, MainLengthTextBox },
-                { BottleParameterType.Width, MainWidthTextBox },
+                { BottleParameterType.MainPartLength, MainLengthTextBox },
+                { BottleParameterType.MainPartWidth, MainWidthTextBox },
                 { BottleParameterType.MainHeight, MainHeightTextBox },
                 { BottleParameterType.NeckHeight, NeckHeightTextBox },
                 { BottleParameterType.NeckRadius, NeckRadiusTextBox }

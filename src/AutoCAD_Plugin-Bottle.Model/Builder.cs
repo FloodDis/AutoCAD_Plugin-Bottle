@@ -33,9 +33,9 @@
                             false,
                             true);
                     var length =
-                        parameters[BottleParameterType.Length];
+                        parameters[BottleParameterType.MainPartLength];
                     var width =
-                        parameters[BottleParameterType.Width];
+                        parameters[BottleParameterType.MainPartWidth];
                     var mainHeight =
                         parameters[BottleParameterType.MainHeight];
                     var neckRadius =

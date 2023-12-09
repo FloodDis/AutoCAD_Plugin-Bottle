@@ -26,8 +26,8 @@
         {
             _parameterDictionary = new Dictionary<BottleParameterType, Parameter>
             {
-                { BottleParameterType.Length, new Parameter(10, 250) },
-                { BottleParameterType.Width, new Parameter(10, 250) },
+                { BottleParameterType.MainPartLength, new Parameter(10, 250) },
+                { BottleParameterType.MainPartWidth, new Parameter(10, 250) },
                 { BottleParameterType.MainHeight, new Parameter(10, 250) },
                 { BottleParameterType.NeckHeight, new Parameter(10, 40) },
                 { BottleParameterType.NeckRadius, new Parameter(5, 20) }
@@ -35,8 +35,8 @@
 
             _errorDictionary = new Dictionary<BottleParameterType, List<ArgumentException>>
             {
-                { BottleParameterType.Length, new List<ArgumentException>() },
-                { BottleParameterType.Width, new List<ArgumentException>() },
+                { BottleParameterType.MainPartLength, new List<ArgumentException>() },
+                { BottleParameterType.MainPartWidth, new List<ArgumentException>() },
                 { BottleParameterType.MainHeight, new List<ArgumentException>() },
                 { BottleParameterType.NeckHeight, new List<ArgumentException>() },
                 { BottleParameterType.NeckRadius, new List<ArgumentException>() }
@@ -122,8 +122,8 @@
             var message = "";
 
             var neckRadius = this[BottleParameterType.NeckRadius];
-            var width = this[BottleParameterType.Width];
-            var length = this[BottleParameterType.Length];
+            var width = this[BottleParameterType.MainPartWidth];
+            var length = this[BottleParameterType.MainPartLength];
 
             if (neckRadius.Value > width.Value / 2)
             {

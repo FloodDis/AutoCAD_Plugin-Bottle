@@ -8,12 +8,12 @@
 		/// <summary>
 		/// Длина основной части.
 		/// </summary>
-		Length = 0,
+		MainPartLength = 0,
 
 		/// <summary>
 		/// Ширина основной части.
 		/// </summary>
-		Width,
+		MainPartWidth,
 
 		/// <summary>
 		/// Высота основной части.
@@ -28,6 +28,21 @@
 		/// <summary>
 		/// Радиус горлышка.
 		/// </summary>
-		NeckRadius
+		NeckRadius,
+
+        /// <summary>
+        /// Радиус основной части.
+        /// </summary>
+        MainPartRadius,
+
+        /// <summary>
+        /// Длина горлышка.
+        /// </summary>
+        NeckLength,
+
+        /// <summary>
+        /// Ширина горлышка.
+        /// </summary>
+        NeckWidth
 	}
 }
