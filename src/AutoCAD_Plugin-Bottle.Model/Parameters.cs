@@ -30,7 +30,10 @@
                 { BottleParameterType.MainPartWidth, new Parameter(10, 250) },
                 { BottleParameterType.MainHeight, new Parameter(10, 250) },
                 { BottleParameterType.NeckHeight, new Parameter(10, 40) },
-                { BottleParameterType.NeckRadius, new Parameter(5, 20) }
+                { BottleParameterType.NeckRadius, new Parameter(5, 20) },
+                { BottleParameterType.NeckLength, new Parameter(5, 20) },
+                { BottleParameterType.NeckWidth, new Parameter(5, 20) },
+                { BottleParameterType.MainPartRadius, new Parameter(10, 250) }
             };
 
             _errorDictionary = new Dictionary<BottleParameterType, List<ArgumentException>>
@@ -39,7 +42,10 @@
                 { BottleParameterType.MainPartWidth, new List<ArgumentException>() },
                 { BottleParameterType.MainHeight, new List<ArgumentException>() },
                 { BottleParameterType.NeckHeight, new List<ArgumentException>() },
-                { BottleParameterType.NeckRadius, new List<ArgumentException>() }
+                { BottleParameterType.NeckRadius, new List<ArgumentException>() },
+                { BottleParameterType.NeckLength, new List<ArgumentException>() },
+                { BottleParameterType.NeckWidth, new List<ArgumentException>() },
+                { BottleParameterType.MainPartRadius, new List<ArgumentException>() }
             };
         }
 
