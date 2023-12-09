@@ -67,8 +67,8 @@
 
             _parameterControls = new Dictionary<BottleParameterType, TextBox>
             {
-                { BottleParameterType.Length, LengthTextBox },
-                { BottleParameterType.Width, WidthTextBox },
+                { BottleParameterType.Length, MainLengthTextBox },
+                { BottleParameterType.Width, MainWidthTextBox },
                 { BottleParameterType.MainHeight, MainHeightTextBox },
                 { BottleParameterType.NeckHeight, NeckHeightTextBox },
                 { BottleParameterType.NeckRadius, NeckRadiusTextBox }
@@ -80,8 +80,8 @@
         /// </summary>
         private void ClearForm()
         {
-            LengthTextBox.Text = "";
-            WidthTextBox.Text = "";
+            MainLengthTextBox.Text = "";
+            MainWidthTextBox.Text = "";
             MainHeightTextBox.Text = "";
             NeckHeightTextBox.Text = "";
             NeckRadiusTextBox.Text = "";
