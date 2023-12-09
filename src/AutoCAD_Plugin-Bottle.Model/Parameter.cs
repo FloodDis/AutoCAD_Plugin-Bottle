@@ -15,7 +15,8 @@
         /// <summary>
         /// Конструктор класса.
         /// </summary>
-        /// <param name="parameterType">Тип параметра.</param>
+        /// <param name="minValue">Минимальное значение.</param>
+        /// <param name="maxValue">Максимальное значение.</param>
         public Parameter(double minValue, double maxValue)
         {
             MinValue = minValue;
