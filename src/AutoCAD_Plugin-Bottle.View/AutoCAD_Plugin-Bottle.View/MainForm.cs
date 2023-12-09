@@ -26,30 +26,22 @@
             };
 
         /// <summary>
-        /// Словарь исключений.
+        /// Словарь названий параметров.
         /// </summary>
-        private readonly Dictionary<BottleParameterType, List<ArgumentException>> _exceptionsDictionary =
-            new Dictionary<BottleParameterType, List<ArgumentException>>
+        private readonly Dictionary<BottleParameterType, string> _parameterNames =
+            new Dictionary<BottleParameterType, string>
             {
-                { BottleParameterType.Length, new List<ArgumentException>() },
-                { BottleParameterType.Width, new List<ArgumentException>() },
-                { BottleParameterType.MainHeight, new List<ArgumentException>() },
-                { BottleParameterType.NeckHeight, new List<ArgumentException>() },
-                { BottleParameterType.NeckRadius, new List<ArgumentException>() }
+                { BottleParameterType.Length, "Длина" },
+                { BottleParameterType.Width, "Ширина" },
+                { BottleParameterType.MainHeight, "Высота основной части" },
+                { BottleParameterType.NeckHeight, "Высота горлышка" },
+                { BottleParameterType.NeckRadius, "Радиус горлышка" }
             };
 
         /// <summary>
         /// Словарь текстбоксов.
         /// </summary>
-        private readonly Dictionary<BottleParameterType, TextBox> _parameterControls =
-            new Dictionary<BottleParameterType, TextBox>
-            {
-                { BottleParameterType.Length, null },
-                { BottleParameterType.Width, null },
-                { BottleParameterType.MainHeight, null },
-                { BottleParameterType.NeckHeight, null },
-                { BottleParameterType.NeckRadius, null }
-            };
+        private readonly Dictionary<BottleParameterType, TextBox> _parameterControls;
 
         /// <summary>
         /// Параметры модели.
@@ -73,11 +65,14 @@
         {
             InitializeComponent();
 
-            _parameterControls[BottleParameterType.Length] = LengthTextBox;
-            _parameterControls[BottleParameterType.Width] = WidthTextBox;
-            _parameterControls[BottleParameterType.MainHeight] = MainHeightTextBox;
-            _parameterControls[BottleParameterType.NeckHeight] = NeckHeightTextBox;
-            _parameterControls[BottleParameterType.NeckRadius] = NeckRadiusTextBox;
+            _parameterControls = new Dictionary<BottleParameterType, TextBox>
+            {
+                { BottleParameterType.Length, LengthTextBox },
+                { BottleParameterType.Width, WidthTextBox },
+                { BottleParameterType.MainHeight, MainHeightTextBox },
+                { BottleParameterType.NeckHeight, NeckHeightTextBox },
+                { BottleParameterType.NeckRadius, NeckRadiusTextBox }
+            };
         }
 
         /// <summary>
@@ -137,101 +132,28 @@
         }
 
         /// <summary>
-        /// Проверяет тип текстбокса.
-        /// </summary>
-        /// <param name="textBox">Текстбокс.</param>
-        /// <returns>Тип параметра.</returns>
-        private BottleParameterType CheckTextBoxType(TextBox textBox)
-        {
-            switch (textBox.Name)
-            {
-                case "LengthTextBox":
-                {
-                    return BottleParameterType.Length;
-                }
-
-                case "WidthTextBox":
-                {
-                    return BottleParameterType.Width;
-                }
-
-                case "MainHeightTextBox":
-                {
-                    return BottleParameterType.MainHeight;
-                }
-
-                case "NeckHeightTextBox":
-                {
-                    return BottleParameterType.NeckHeight;
-                }
-
-                case "RadiusTextBox":
-                {
-                    return BottleParameterType.NeckRadius;
-                }
-
-                default:
-                    return BottleParameterType.NeckRadius;
-            }
-        }
-
-        /// <summary>
         /// Обработчик события изменения текста в текстбоксе.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void OnTextChanged(object sender, EventArgs e)
         {
-            BottleParameterType currentParameter = CheckTextBoxType((TextBox)sender);
+            var currentControl =
+                _parameterControls.First(x => x.Value == sender);
+            var currentParameter = currentControl.Key;
 
             try
             {
                 if (_parameterControls[currentParameter].Text == "")
                 {
                     _parameterControls[currentParameter].BackColor = _defaultColor;
-                    _exceptionsDictionary[currentParameter].Clear();
                     _errors[currentParameter] = "";
                     return;
                 }
 
-                try
-                {
-                    _parameters.ParameterDictionary[currentParameter].Value =
-                        double.Parse(_parameterControls[currentParameter].Text);
-                }
-                catch (ArgumentException exception)
-                {
-                    _exceptionsDictionary[currentParameter].Add(exception);
-                }
-
-                try
-                {
-                    if (currentParameter == BottleParameterType.NeckHeight)
-                    {
-                        _parameters.ValidateNeckHeight();
-                    }
-                }
-                catch (ArgumentException exception)
-                {
-                    _exceptionsDictionary[currentParameter].Add(exception);
-                }
-
-                try
-                {
-                    if (currentParameter == BottleParameterType.NeckRadius)
-                    {
-                        _parameters.ValidateNeckRadius();
-                    }
-                }
-                catch (ArgumentException exception)
-                {
-                    _exceptionsDictionary[currentParameter].Add(exception);
-                }
-
-                if (_exceptionsDictionary[currentParameter].Any())
-                {
-                    throw new AggregateException(_exceptionsDictionary[currentParameter]);
-                }
+                _parameters.SetValue(
+                    currentParameter,
+                    double.Parse(_parameterControls[currentParameter].Text));
 
                 _errors[currentParameter] = "";
                 _parameterControls[currentParameter].BackColor = _defaultColor;
@@ -245,10 +167,10 @@
 
                 foreach (ArgumentException exception in aggregateException.InnerExceptions)
                 {
-                    _errors[currentParameter] += exception.Message;
+                    _errors[currentParameter] +=
+                        $"• {_parameterNames[currentParameter]}: " + exception.Message;
                 }
 
-                _exceptionsDictionary[currentParameter].Clear();
                 _parameterControls[currentParameter].BackColor = _errorColor;
             }
         }
