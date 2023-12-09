@@ -1,6 +1,5 @@
 ﻿namespace AutoCAD_Plugin_Bottle.Model
 {
-    using Autodesk.AutoCAD.ApplicationServices;
     using Autodesk.AutoCAD.DatabaseServices;
     using Autodesk.AutoCAD.Geometry;
 
@@ -34,15 +33,15 @@
                             false,
                             true);
                     var length =
-                        parameters.ParameterDictionary[BottleParameterType.Length];
+                        parameters[BottleParameterType.Length];
                     var width =
-                        parameters.ParameterDictionary[BottleParameterType.Width];
+                        parameters[BottleParameterType.Width];
                     var mainHeight =
-                        parameters.ParameterDictionary[BottleParameterType.MainHeight];
+                        parameters[BottleParameterType.MainHeight];
                     var neckRadius =
-                        parameters.ParameterDictionary[BottleParameterType.NeckRadius];
+                        parameters[BottleParameterType.NeckRadius];
                     var neckHeight =
-                        parameters.ParameterDictionary[BottleParameterType.NeckHeight];
+                        parameters[BottleParameterType.NeckHeight];
 
                     var mainPart = BuildMainPart(
                         length,
