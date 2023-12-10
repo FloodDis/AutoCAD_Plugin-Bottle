@@ -26,28 +26,38 @@
         {
             _parameterDictionary = new Dictionary<BottleParameterType, Parameter>
             {
-                { BottleParameterType.MainPartLength, new Parameter(10, 250) },
-                { BottleParameterType.MainPartWidth, new Parameter(10, 250) },
+                { BottleParameterType.MainLength, new Parameter(10, 250) },
+                { BottleParameterType.MainWidth, new Parameter(10, 250) },
                 { BottleParameterType.MainHeight, new Parameter(10, 250) },
                 { BottleParameterType.NeckHeight, new Parameter(10, 40) },
                 { BottleParameterType.NeckRadius, new Parameter(5, 20) },
                 { BottleParameterType.NeckLength, new Parameter(5, 20) },
                 { BottleParameterType.NeckWidth, new Parameter(5, 20) },
-                { BottleParameterType.MainPartRadius, new Parameter(10, 250) }
+                { BottleParameterType.MainRadius, new Parameter(10, 125) }
             };
 
             _errorDictionary = new Dictionary<BottleParameterType, List<ArgumentException>>
             {
-                { BottleParameterType.MainPartLength, new List<ArgumentException>() },
-                { BottleParameterType.MainPartWidth, new List<ArgumentException>() },
+                { BottleParameterType.MainLength, new List<ArgumentException>() },
+                { BottleParameterType.MainWidth, new List<ArgumentException>() },
                 { BottleParameterType.MainHeight, new List<ArgumentException>() },
                 { BottleParameterType.NeckHeight, new List<ArgumentException>() },
                 { BottleParameterType.NeckRadius, new List<ArgumentException>() },
                 { BottleParameterType.NeckLength, new List<ArgumentException>() },
                 { BottleParameterType.NeckWidth, new List<ArgumentException>() },
-                { BottleParameterType.MainPartRadius, new List<ArgumentException>() }
+                { BottleParameterType.MainRadius, new List<ArgumentException>() }
             };
         }
+
+        /// <summary>
+        /// Авто свойство флага формы основной части бутылки.
+        /// </summary>
+        public bool IsMainCircle { get; set; }
+
+        /// <summary>
+        /// Авто свойство флага формы горлышка бутылки.
+        /// </summary>
+        public bool IsNeckRectangle { get; set; }
 
         /// <summary>
         /// Перегрузка оператора [].
@@ -88,7 +98,8 @@
 
             try
             {
-                if (type == BottleParameterType.NeckRadius)
+                if (type == BottleParameterType.NeckRadius
+                && !IsMainCircle)
                 {
                     ValidateNeckRadius();
                 }
@@ -128,8 +139,8 @@
             var message = "";
 
             var neckRadius = this[BottleParameterType.NeckRadius];
-            var width = this[BottleParameterType.MainPartWidth];
-            var length = this[BottleParameterType.MainPartLength];
+            var width = this[BottleParameterType.MainWidth];
+            var length = this[BottleParameterType.MainLength];
 
             if (neckRadius.Value > width.Value / 2)
             {

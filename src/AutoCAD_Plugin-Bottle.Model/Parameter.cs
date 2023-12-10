@@ -46,10 +46,18 @@
 			}
 		}
 
-		/// <summary>
-		/// Валидирует параметр.
-		/// </summary>
-		private void Validate(double value)
+        /// <summary>
+        /// Возвращает параметр к дефолтному значению.
+        /// </summary>
+        public void ReturnToDefaultValue()
+        {
+            Value = MinValue;
+        }
+
+        /// <summary>
+        /// Валидирует параметр.
+        /// </summary>
+        private void Validate(double value)
 		{
 			if (value < MinValue || value > MaxValue)
             {

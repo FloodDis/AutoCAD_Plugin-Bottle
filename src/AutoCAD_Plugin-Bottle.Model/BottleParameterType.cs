@@ -8,12 +8,12 @@
 		/// <summary>
 		/// Длина основной части.
 		/// </summary>
-		MainPartLength = 0,
+		MainLength = 0,
 
 		/// <summary>
 		/// Ширина основной части.
 		/// </summary>
-		MainPartWidth,
+		MainWidth,
 
 		/// <summary>
 		/// Высота основной части.
@@ -33,7 +33,7 @@
         /// <summary>
         /// Радиус основной части.
         /// </summary>
-        MainPartRadius,
+        MainRadius,
 
         /// <summary>
         /// Длина горлышка.

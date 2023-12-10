@@ -28,8 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.LengthLabel = new System.Windows.Forms.Label();
-            this.WidthLabel = new System.Windows.Forms.Label();
+            this.MainLengthLabel = new System.Windows.Forms.Label();
+            this.MainWidthLabel = new System.Windows.Forms.Label();
             this.MainHeightLabel = new System.Windows.Forms.Label();
             this.NeckHeightLabel = new System.Windows.Forms.Label();
             this.NeckRadiusLabel = new System.Windows.Forms.Label();
@@ -38,8 +38,8 @@
             this.MainHeightTextBox = new System.Windows.Forms.TextBox();
             this.NeckHeightTextBox = new System.Windows.Forms.TextBox();
             this.NeckRadiusTextBox = new System.Windows.Forms.TextBox();
-            this.LengthRangeLabel = new System.Windows.Forms.Label();
-            this.WidthRangeLabel = new System.Windows.Forms.Label();
+            this.MainLengthRangeLabel = new System.Windows.Forms.Label();
+            this.MainWidthRangeLabel = new System.Windows.Forms.Label();
             this.MainHeightRangeLabel = new System.Windows.Forms.Label();
             this.NeckHeightRangeLabel = new System.Windows.Forms.Label();
             this.NeckRadiusRangeLabel = new System.Windows.Forms.Label();
@@ -50,9 +50,9 @@
             this.NeckWidthTextBox = new System.Windows.Forms.TextBox();
             this.MainRadiusLabel = new System.Windows.Forms.Label();
             this.MainRadiusTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.NeckLengthRangeLabel = new System.Windows.Forms.Label();
+            this.NeckWidthRangeLabel = new System.Windows.Forms.Label();
+            this.MainRadiusRangeLabel = new System.Windows.Forms.Label();
             this.RoundMainRadioButton = new System.Windows.Forms.RadioButton();
             this.MainPartFormGroupBox = new System.Windows.Forms.GroupBox();
             this.RectangleMainRadioButton = new System.Windows.Forms.RadioButton();
@@ -63,23 +63,23 @@
             this.NeckFormGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // LengthLabel
+            // MainLengthLabel
             // 
-            this.LengthLabel.AutoSize = true;
-            this.LengthLabel.Location = new System.Drawing.Point(29, 29);
-            this.LengthLabel.Name = "LengthLabel";
-            this.LengthLabel.Size = new System.Drawing.Size(40, 13);
-            this.LengthLabel.TabIndex = 0;
-            this.LengthLabel.Text = "Длина";
+            this.MainLengthLabel.AutoSize = true;
+            this.MainLengthLabel.Location = new System.Drawing.Point(29, 29);
+            this.MainLengthLabel.Name = "MainLengthLabel";
+            this.MainLengthLabel.Size = new System.Drawing.Size(122, 13);
+            this.MainLengthLabel.TabIndex = 0;
+            this.MainLengthLabel.Text = "Длина основной части";
             // 
-            // WidthLabel
+            // MainWidthLabel
             // 
-            this.WidthLabel.AutoSize = true;
-            this.WidthLabel.Location = new System.Drawing.Point(29, 62);
-            this.WidthLabel.Name = "WidthLabel";
-            this.WidthLabel.Size = new System.Drawing.Size(46, 13);
-            this.WidthLabel.TabIndex = 1;
-            this.WidthLabel.Text = "Ширина";
+            this.MainWidthLabel.AutoSize = true;
+            this.MainWidthLabel.Location = new System.Drawing.Point(29, 62);
+            this.MainWidthLabel.Name = "MainWidthLabel";
+            this.MainWidthLabel.Size = new System.Drawing.Size(122, 13);
+            this.MainWidthLabel.TabIndex = 1;
+            this.MainWidthLabel.Text = "Ширина основой части";
             // 
             // MainHeightLabel
             // 
@@ -163,23 +163,23 @@
             this.NeckRadiusTextBox.TextChanged += new System.EventHandler(this.OnTextChanged);
             this.NeckRadiusTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             // 
-            // LengthRangeLabel
+            // MainLengthRangeLabel
             // 
-            this.LengthRangeLabel.AutoSize = true;
-            this.LengthRangeLabel.Location = new System.Drawing.Point(271, 29);
-            this.LengthRangeLabel.Name = "LengthRangeLabel";
-            this.LengthRangeLabel.Size = new System.Drawing.Size(59, 13);
-            this.LengthRangeLabel.TabIndex = 10;
-            this.LengthRangeLabel.Text = "10-250 мм";
+            this.MainLengthRangeLabel.AutoSize = true;
+            this.MainLengthRangeLabel.Location = new System.Drawing.Point(271, 29);
+            this.MainLengthRangeLabel.Name = "MainLengthRangeLabel";
+            this.MainLengthRangeLabel.Size = new System.Drawing.Size(59, 13);
+            this.MainLengthRangeLabel.TabIndex = 10;
+            this.MainLengthRangeLabel.Text = "10-250 мм";
             // 
-            // WidthRangeLabel
+            // MainWidthRangeLabel
             // 
-            this.WidthRangeLabel.AutoSize = true;
-            this.WidthRangeLabel.Location = new System.Drawing.Point(271, 62);
-            this.WidthRangeLabel.Name = "WidthRangeLabel";
-            this.WidthRangeLabel.Size = new System.Drawing.Size(59, 13);
-            this.WidthRangeLabel.TabIndex = 11;
-            this.WidthRangeLabel.Text = "10-250 мм";
+            this.MainWidthRangeLabel.AutoSize = true;
+            this.MainWidthRangeLabel.Location = new System.Drawing.Point(271, 62);
+            this.MainWidthRangeLabel.Name = "MainWidthRangeLabel";
+            this.MainWidthRangeLabel.Size = new System.Drawing.Size(59, 13);
+            this.MainWidthRangeLabel.TabIndex = 11;
+            this.MainWidthRangeLabel.Text = "10-250 мм";
             // 
             // MainHeightRangeLabel
             // 
@@ -228,17 +228,17 @@
             this.NeckLengthLablel.Size = new System.Drawing.Size(94, 13);
             this.NeckLengthLablel.TabIndex = 16;
             this.NeckLengthLablel.Text = "Длина горлышка";
-            this.NeckLengthLablel.Visible = false;
             // 
             // NeckLengthTextBox
             // 
-            this.NeckLengthTextBox.BackColor = System.Drawing.Color.White;
+            this.NeckLengthTextBox.BackColor = System.Drawing.Color.LightGray;
             this.NeckLengthTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.NeckLengthTextBox.Enabled = false;
             this.NeckLengthTextBox.Location = new System.Drawing.Point(175, 198);
             this.NeckLengthTextBox.Name = "NeckLengthTextBox";
             this.NeckLengthTextBox.Size = new System.Drawing.Size(72, 20);
             this.NeckLengthTextBox.TabIndex = 17;
-            this.NeckLengthTextBox.Visible = false;
+            this.NeckLengthTextBox.TextChanged += new System.EventHandler(this.OnTextChanged);
             // 
             // NeckWidthLabel
             // 
@@ -248,17 +248,17 @@
             this.NeckWidthLabel.Size = new System.Drawing.Size(100, 13);
             this.NeckWidthLabel.TabIndex = 18;
             this.NeckWidthLabel.Text = "Ширина горлышка";
-            this.NeckWidthLabel.Visible = false;
             // 
             // NeckWidthTextBox
             // 
-            this.NeckWidthTextBox.BackColor = System.Drawing.Color.White;
+            this.NeckWidthTextBox.BackColor = System.Drawing.Color.LightGray;
             this.NeckWidthTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.NeckWidthTextBox.Enabled = false;
             this.NeckWidthTextBox.Location = new System.Drawing.Point(175, 234);
             this.NeckWidthTextBox.Name = "NeckWidthTextBox";
             this.NeckWidthTextBox.Size = new System.Drawing.Size(72, 20);
             this.NeckWidthTextBox.TabIndex = 19;
-            this.NeckWidthTextBox.Visible = false;
+            this.NeckWidthTextBox.TextChanged += new System.EventHandler(this.OnTextChanged);
             // 
             // MainRadiusLabel
             // 
@@ -268,47 +268,44 @@
             this.MainRadiusLabel.Size = new System.Drawing.Size(125, 13);
             this.MainRadiusLabel.TabIndex = 20;
             this.MainRadiusLabel.Text = "Радиус основной части";
-            this.MainRadiusLabel.Visible = false;
             // 
             // MainRadiusTextBox
             // 
-            this.MainRadiusTextBox.BackColor = System.Drawing.Color.White;
+            this.MainRadiusTextBox.BackColor = System.Drawing.Color.LightGray;
             this.MainRadiusTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MainRadiusTextBox.Enabled = false;
             this.MainRadiusTextBox.Location = new System.Drawing.Point(175, 272);
             this.MainRadiusTextBox.Name = "MainRadiusTextBox";
             this.MainRadiusTextBox.Size = new System.Drawing.Size(72, 20);
             this.MainRadiusTextBox.TabIndex = 21;
-            this.MainRadiusTextBox.Visible = false;
+            this.MainRadiusTextBox.TextChanged += new System.EventHandler(this.OnTextChanged);
             // 
-            // label1
+            // NeckLengthRangeLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(271, 200);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "5-20 мм";
-            this.label1.Visible = false;
+            this.NeckLengthRangeLabel.AutoSize = true;
+            this.NeckLengthRangeLabel.Location = new System.Drawing.Point(271, 200);
+            this.NeckLengthRangeLabel.Name = "NeckLengthRangeLabel";
+            this.NeckLengthRangeLabel.Size = new System.Drawing.Size(47, 13);
+            this.NeckLengthRangeLabel.TabIndex = 22;
+            this.NeckLengthRangeLabel.Text = "5-20 мм";
             // 
-            // label2
+            // NeckWidthRangeLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(271, 236);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "5-20 мм";
-            this.label2.Visible = false;
+            this.NeckWidthRangeLabel.AutoSize = true;
+            this.NeckWidthRangeLabel.Location = new System.Drawing.Point(271, 236);
+            this.NeckWidthRangeLabel.Name = "NeckWidthRangeLabel";
+            this.NeckWidthRangeLabel.Size = new System.Drawing.Size(47, 13);
+            this.NeckWidthRangeLabel.TabIndex = 23;
+            this.NeckWidthRangeLabel.Text = "5-20 мм";
             // 
-            // label3
+            // MainRadiusRangeLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(271, 274);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 13);
-            this.label3.TabIndex = 24;
-            this.label3.Text = "10-250 мм";
-            this.label3.Visible = false;
+            this.MainRadiusRangeLabel.AutoSize = true;
+            this.MainRadiusRangeLabel.Location = new System.Drawing.Point(271, 274);
+            this.MainRadiusRangeLabel.Name = "MainRadiusRangeLabel";
+            this.MainRadiusRangeLabel.Size = new System.Drawing.Size(59, 13);
+            this.MainRadiusRangeLabel.TabIndex = 24;
+            this.MainRadiusRangeLabel.Text = "10-125 мм";
             // 
             // RoundMainRadioButton
             // 
@@ -320,6 +317,7 @@
             this.RoundMainRadioButton.TabStop = true;
             this.RoundMainRadioButton.Text = "Окружность";
             this.RoundMainRadioButton.UseVisualStyleBackColor = true;
+            this.RoundMainRadioButton.CheckedChanged += new System.EventHandler(this.RoundMainRadioButton_CheckedChanged);
             // 
             // MainPartFormGroupBox
             // 
@@ -342,6 +340,7 @@
             this.RectangleMainRadioButton.TabStop = true;
             this.RectangleMainRadioButton.Text = "Прямоугольник";
             this.RectangleMainRadioButton.UseVisualStyleBackColor = true;
+            this.RectangleMainRadioButton.CheckedChanged += new System.EventHandler(this.RectangleMainRadioButton_CheckedChanged);
             // 
             // NeckFormGroupBox
             // 
@@ -364,6 +363,7 @@
             this.RectangleNeckRadioButton.TabStop = true;
             this.RectangleNeckRadioButton.Text = "Прямоугольник";
             this.RectangleNeckRadioButton.UseVisualStyleBackColor = true;
+            this.RectangleNeckRadioButton.CheckedChanged += new System.EventHandler(this.RectangleNeckRadioButton_CheckedChanged);
             // 
             // RoundNeckRadioButton
             // 
@@ -375,6 +375,7 @@
             this.RoundNeckRadioButton.TabStop = true;
             this.RoundNeckRadioButton.Text = "Окружность";
             this.RoundNeckRadioButton.UseVisualStyleBackColor = true;
+            this.RoundNeckRadioButton.CheckedChanged += new System.EventHandler(this.RoundNeckRadioButton_CheckedChanged);
             // 
             // MainForm
             // 
@@ -384,9 +385,9 @@
             this.ClientSize = new System.Drawing.Size(359, 434);
             this.Controls.Add(this.NeckFormGroupBox);
             this.Controls.Add(this.MainPartFormGroupBox);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.MainRadiusRangeLabel);
+            this.Controls.Add(this.NeckWidthRangeLabel);
+            this.Controls.Add(this.NeckLengthRangeLabel);
             this.Controls.Add(this.MainRadiusTextBox);
             this.Controls.Add(this.MainRadiusLabel);
             this.Controls.Add(this.NeckWidthTextBox);
@@ -397,8 +398,8 @@
             this.Controls.Add(this.NeckRadiusRangeLabel);
             this.Controls.Add(this.NeckHeightRangeLabel);
             this.Controls.Add(this.MainHeightRangeLabel);
-            this.Controls.Add(this.WidthRangeLabel);
-            this.Controls.Add(this.LengthRangeLabel);
+            this.Controls.Add(this.MainWidthRangeLabel);
+            this.Controls.Add(this.MainLengthRangeLabel);
             this.Controls.Add(this.NeckRadiusTextBox);
             this.Controls.Add(this.NeckHeightTextBox);
             this.Controls.Add(this.MainHeightTextBox);
@@ -407,8 +408,8 @@
             this.Controls.Add(this.NeckRadiusLabel);
             this.Controls.Add(this.NeckHeightLabel);
             this.Controls.Add(this.MainHeightLabel);
-            this.Controls.Add(this.WidthLabel);
-            this.Controls.Add(this.LengthLabel);
+            this.Controls.Add(this.MainWidthLabel);
+            this.Controls.Add(this.MainLengthLabel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -425,8 +426,8 @@
 
 		#endregion
 
-		private System.Windows.Forms.Label LengthLabel;
-		private System.Windows.Forms.Label WidthLabel;
+		private System.Windows.Forms.Label MainLengthLabel;
+		private System.Windows.Forms.Label MainWidthLabel;
 		private System.Windows.Forms.Label MainHeightLabel;
 		private System.Windows.Forms.Label NeckHeightLabel;
 		private System.Windows.Forms.Label NeckRadiusLabel;
@@ -435,8 +436,8 @@
 		private System.Windows.Forms.TextBox MainHeightTextBox;
 		private System.Windows.Forms.TextBox NeckHeightTextBox;
 		private System.Windows.Forms.TextBox NeckRadiusTextBox;
-		private System.Windows.Forms.Label LengthRangeLabel;
-		private System.Windows.Forms.Label WidthRangeLabel;
+		private System.Windows.Forms.Label MainLengthRangeLabel;
+		private System.Windows.Forms.Label MainWidthRangeLabel;
 		private System.Windows.Forms.Label MainHeightRangeLabel;
 		private System.Windows.Forms.Label NeckHeightRangeLabel;
 		private System.Windows.Forms.Label NeckRadiusRangeLabel;
@@ -447,9 +448,9 @@
         private System.Windows.Forms.TextBox NeckWidthTextBox;
         private System.Windows.Forms.Label MainRadiusLabel;
         private System.Windows.Forms.TextBox MainRadiusTextBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label NeckLengthRangeLabel;
+        private System.Windows.Forms.Label NeckWidthRangeLabel;
+        private System.Windows.Forms.Label MainRadiusRangeLabel;
         private System.Windows.Forms.RadioButton RoundMainRadioButton;
         private System.Windows.Forms.GroupBox MainPartFormGroupBox;
         private System.Windows.Forms.RadioButton RectangleMainRadioButton;

@@ -15,28 +15,12 @@
         /// <summary>
         /// Словарь ошибок.
         /// </summary>
-        private readonly Dictionary<BottleParameterType, string> _errors =
-            new Dictionary<BottleParameterType, string>
-            {
-                { BottleParameterType.MainPartLength, "" },
-                { BottleParameterType.MainPartWidth, "" },
-                { BottleParameterType.MainHeight, "" },
-                { BottleParameterType.NeckHeight, "" },
-                { BottleParameterType.NeckRadius, "" }
-            };
+        private readonly Dictionary<BottleParameterType, string> _errors;
 
         /// <summary>
         /// Словарь названий параметров.
         /// </summary>
-        private readonly Dictionary<BottleParameterType, string> _parameterNames =
-            new Dictionary<BottleParameterType, string>
-            {
-                { BottleParameterType.MainPartLength, "Длина" },
-                { BottleParameterType.MainPartWidth, "Ширина" },
-                { BottleParameterType.MainHeight, "Высота основной части" },
-                { BottleParameterType.NeckHeight, "Высота горлышка" },
-                { BottleParameterType.NeckRadius, "Радиус горлышка" }
-            };
+        private readonly Dictionary<BottleParameterType, string> _parameterNames;
 
         /// <summary>
         /// Словарь текстбоксов.
@@ -59,6 +43,23 @@
         private readonly Color _errorColor = Color.LightPink;
 
         /// <summary>
+        /// Цвет элементов формы при их отключении.
+        /// </summary>
+        private readonly Color _disabledColor = Color.LightGray;
+
+        /// <summary>
+        /// Флаг, определяющий выбранную форму основания главной части:
+        /// true - окружность, false - прямоугольник.
+        /// </summary>
+        private bool _isMainCircle = false;
+
+        /// <summary>
+        /// Флаг, определяющий выбранную форму основания горлышка:
+        /// true - окружность, false - прямоугольник.
+        /// </summary>
+        private bool _isNeckRectangle = false;
+
+        /// <summary>
         /// Конструктор формы.
         /// </summary>
         public MainForm()
@@ -67,11 +68,38 @@
 
             _parameterControls = new Dictionary<BottleParameterType, TextBox>
             {
-                { BottleParameterType.MainPartLength, MainLengthTextBox },
-                { BottleParameterType.MainPartWidth, MainWidthTextBox },
+                { BottleParameterType.MainLength, MainLengthTextBox },
+                { BottleParameterType.MainWidth, MainWidthTextBox },
                 { BottleParameterType.MainHeight, MainHeightTextBox },
                 { BottleParameterType.NeckHeight, NeckHeightTextBox },
-                { BottleParameterType.NeckRadius, NeckRadiusTextBox }
+                { BottleParameterType.NeckRadius, NeckRadiusTextBox },
+                { BottleParameterType.NeckLength, NeckLengthTextBox },
+                { BottleParameterType.NeckWidth, NeckWidthTextBox },
+                { BottleParameterType.MainRadius, MainRadiusTextBox }
+            };
+
+            _errors = new Dictionary<BottleParameterType, string>
+            {
+                { BottleParameterType.MainLength, "" },
+                { BottleParameterType.MainWidth, "" },
+                { BottleParameterType.MainHeight, "" },
+                { BottleParameterType.NeckHeight, "" },
+                { BottleParameterType.NeckRadius, "" },
+                { BottleParameterType.NeckLength, "" },
+                { BottleParameterType.NeckWidth, "" },
+                { BottleParameterType.MainRadius, "" }
+            };
+
+            _parameterNames = new Dictionary<BottleParameterType, string>
+            {
+                { BottleParameterType.MainLength, "Длина" },
+                { BottleParameterType.MainWidth, "Ширина" },
+                { BottleParameterType.MainHeight, "Высота основной части" },
+                { BottleParameterType.NeckHeight, "Высота горлышка" },
+                { BottleParameterType.NeckRadius, "Радиус горлышка" },
+                { BottleParameterType.NeckLength, "Длина горлышка" },
+                { BottleParameterType.NeckWidth, "Ширина горлышка" },
+                { BottleParameterType.MainRadius, "Радиус основной части" }
             };
         }
 
@@ -85,6 +113,9 @@
             MainHeightTextBox.Text = "";
             NeckHeightTextBox.Text = "";
             NeckRadiusTextBox.Text = "";
+            NeckWidthTextBox.Text = "";
+            NeckLengthTextBox.Text = "";
+            MainRadiusTextBox.Text = "";
         }
 
         /// <summary>
@@ -107,7 +138,8 @@
             foreach (BottleParameterType parameterType
                 in Enum.GetValues(typeof(BottleParameterType)))
             {
-                if (_parameterControls[parameterType].Text == "")
+                if (_parameterControls[parameterType].Text == ""
+                    && _parameterControls[parameterType].Enabled)
                 {
                     isEmpty = true;
                 }
@@ -129,6 +161,98 @@
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Изменяет доступные элементы управления на форме для основной части бутылки.
+        /// </summary>
+        private void ChangeMainEnabledControls()
+        {
+            if (_isMainCircle)
+            {
+                MainRadiusTextBox.Enabled = true;
+                MainLengthTextBox.Enabled = false;
+                MainWidthTextBox.Enabled = false;
+
+                MainRadiusTextBox.BackColor = _defaultColor;
+                MainLengthTextBox.BackColor = _disabledColor;
+                MainWidthTextBox.BackColor = _disabledColor;
+            }
+            else
+            {
+                MainRadiusTextBox.Enabled = false;
+                MainLengthTextBox.Enabled = true;
+                MainWidthTextBox.Enabled = true;
+
+                MainRadiusTextBox.BackColor = _disabledColor;
+                MainLengthTextBox.BackColor = _defaultColor;
+                MainWidthTextBox.BackColor = _defaultColor;
+            }
+        }
+
+        /// <summary>
+        /// Изменяет доступные элементы управления на форме для горлышка бутылки.
+        /// </summary>
+        private void ChangeNeckEnabledControls()
+        {
+            if (_isNeckRectangle)
+            {
+                NeckRadiusTextBox.Enabled = false;
+                NeckLengthTextBox.Enabled = true;
+                NeckWidthTextBox.Enabled = true;
+
+                NeckRadiusTextBox.BackColor = _disabledColor;
+                NeckLengthTextBox.BackColor = _defaultColor;
+                NeckWidthTextBox.BackColor = _defaultColor;
+            }
+            else
+            {
+                NeckRadiusTextBox.Enabled = true;
+                NeckLengthTextBox.Enabled = false;
+                NeckWidthTextBox.Enabled = false;
+
+                NeckRadiusTextBox.BackColor = _defaultColor;
+                NeckLengthTextBox.BackColor = _disabledColor;
+                NeckWidthTextBox.BackColor = _disabledColor;
+            }
+        }
+
+        /// <summary>
+        /// Очищает отключенные параметры.
+        /// </summary>
+        private void ClearDisabledParameters()
+        {
+            if (_isMainCircle)
+            {
+                _parameters[BottleParameterType.MainLength].ReturnToDefaultValue();
+                _parameters[BottleParameterType.MainWidth].ReturnToDefaultValue();
+                MainLengthTextBox.Text = "";
+                MainLengthTextBox.BackColor = _disabledColor;
+                MainWidthTextBox.Text = "";
+                MainWidthTextBox.BackColor = _disabledColor;
+            }
+            else
+            {
+                _parameters[BottleParameterType.MainRadius].ReturnToDefaultValue();
+                MainRadiusTextBox.Text = "";
+                MainRadiusTextBox.BackColor = _disabledColor;
+            }
+
+            if (_isNeckRectangle)
+            {
+                _parameters[BottleParameterType.NeckRadius].ReturnToDefaultValue();
+                NeckRadiusTextBox.Text = "";
+                NeckRadiusTextBox.BackColor = _disabledColor;
+            }
+            else
+            {
+                _parameters[BottleParameterType.NeckLength].ReturnToDefaultValue();
+                _parameters[BottleParameterType.NeckWidth].ReturnToDefaultValue();
+                NeckLengthTextBox.Text = "";
+                NeckLengthTextBox.BackColor = _disabledColor;
+                NeckWidthTextBox.Text = "";
+                NeckWidthTextBox.BackColor = _disabledColor;
+            }
         }
 
         /// <summary>
@@ -198,8 +322,63 @@
                 return;
             }
 
+            ClearDisabledParameters();
+            _parameters.IsMainCircle = _isMainCircle;
+            _parameters.IsNeckRectangle = _isNeckRectangle;
             Builder.BuildBottle(_parameters);
             ClearForm();
+        }
+
+        /// <summary>
+        /// Обработчик события нажатия на RoundMainRadioButton.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RoundMainRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            _isMainCircle = true;
+            ChangeMainEnabledControls();
+            ClearDisabledParameters();
+            _parameters.IsMainCircle = _isMainCircle;
+        }
+
+        /// <summary>
+        /// Обработчик события изменения состояния RectangleMainRadioButton.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RectangleMainRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            _isMainCircle = false;
+            ChangeMainEnabledControls();
+            ClearDisabledParameters();
+            _parameters.IsMainCircle = _isMainCircle;
+        }
+
+        /// <summary>
+        /// Обработчик события изменения состояния RoundNeckRadioButton.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RoundNeckRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            _isNeckRectangle = false;
+            ChangeNeckEnabledControls();
+            ClearDisabledParameters();
+            _parameters.IsNeckRectangle = _isNeckRectangle;
+        }
+
+        /// <summary>
+        /// Обработчик события изменения состояния RectangleNeckRadioButton.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RectangleNeckRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            _isNeckRectangle = true;
+            ChangeNeckEnabledControls();
+            ClearDisabledParameters();
+            _parameters.IsNeckRectangle = _isNeckRectangle;
         }
     }
 }

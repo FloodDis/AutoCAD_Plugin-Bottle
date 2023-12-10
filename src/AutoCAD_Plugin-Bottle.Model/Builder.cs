@@ -32,34 +32,55 @@
                             OpenMode.ForWrite,
                             false,
                             true);
-                    var length =
-                        parameters[BottleParameterType.MainPartLength];
-                    var width =
-                        parameters[BottleParameterType.MainPartWidth];
+                    var mainLength =
+                        parameters[BottleParameterType.MainLength];
+                    var mainWidth =
+                        parameters[BottleParameterType.MainWidth];
                     var mainHeight =
                         parameters[BottleParameterType.MainHeight];
                     var neckRadius =
                         parameters[BottleParameterType.NeckRadius];
                     var neckHeight =
                         parameters[BottleParameterType.NeckHeight];
+                    var neckLength =
+                        parameters[BottleParameterType.NeckLength];
+                    var neckWidth =
+                        parameters[BottleParameterType.NeckWidth];
+                    var mainRadius =
+                        parameters[BottleParameterType.MainRadius];
 
-                    var mainPart = BuildMainPart(
-                        length,
-                        width,
-                        mainHeight,
-                        neckRadius);
-                    var neck = BuildNeck(
-                        neckHeight,
-                        neckRadius,
-                        width,
-                        length,
-                        mainHeight);
+                    var mainPart = new Solid3d();
+                    var neck = new Solid3d();
+                    var shell = new Solid3d();
+                    if (parameters.IsMainCircle)
+                    {
+                        mainPart = BuildMain(mainRadius, mainHeight);
+                    }
+                    else
+                    {
+                        mainPart = BuildMain(mainLength, mainWidth, mainHeight);
+                    }
+
+                    if (parameters.IsNeckRectangle)
+                    {
+                        neck = BuildNeck(neckHeight, neckLength, neckWidth, mainHeight);
+                        shell = BuildShellSolid(neckLength, neckWidth, mainHeight);
+                    }
+                    else
+                    {
+                        neck = BuildNeck(neckHeight, neckRadius, mainHeight);
+                        shell = BuildShellSolid(neckRadius, mainHeight);
+                    }
+
+                    mainPart.BooleanOperation(BooleanOperationType.BoolSubtract, shell);
 
                     modelSpace.AppendEntity(mainPart);
                     modelSpace.AppendEntity(neck);
+                    modelSpace.AppendEntity(shell);
 
                     transaction.AddNewlyCreatedDBObject(mainPart, true);
                     transaction.AddNewlyCreatedDBObject(neck, true);
+                    transaction.AddNewlyCreatedDBObject(shell, true);
 
                     transaction.Commit();
                 }
@@ -67,68 +88,80 @@
         }
 
         /// <summary>
-        /// Строит основную часть бутылки.
+        /// Строит прямоугольную основную часть бутылки.
         /// </summary>
-        /// <param name="length">Длина основной части.</param>
-        /// <param name="width">Высота основной части.</param>
+        /// <param name="mainLength">Длина основной части.</param>
+        /// <param name="mainWidth">Высота основной части.</param>
         /// <param name="mainHeight">Высота основной части.</param>
-        /// <param name="neckRadius">Радиус горлышка.</param>
-        /// <returns>Созданная основная часть.</returns>
-        private static Solid3d BuildMainPart(
-            Parameter length,
-            Parameter width,
-            Parameter mainHeight,
-            Parameter neckRadius)
+        /// <returns>Основная часть.</returns>
+        private static Solid3d BuildMain(
+            Parameter mainLength,
+            Parameter mainWidth,
+            Parameter mainHeight
+            )
         {
+            var mainCenter = new Point3d(0, 0, 0);
             var mainRectangle = SketchBuilder.CreateRectangle(
-                width.Value,
-                length.Value);
+                mainWidth.Value,
+                mainLength.Value,
+                mainCenter);
             var mainPart = new Solid3d();
-            mainPart.Extrude(mainRectangle, mainHeight.Value, 0);
+            mainPart.Extrude(mainRectangle, -mainHeight.Value, 0);
 
+            var shellCenter = new Point3d(0, 0, 2);
             var shellRectangle = SketchBuilder.CreateRectangle(
-                width.Value,
-                length.Value,
-                2);
+                mainWidth.Value - 2,
+                mainLength.Value - 2,
+                shellCenter);
             var mainShellPart = new Solid3d();
-            mainShellPart.Extrude(shellRectangle, mainHeight.Value - 4, 0);
-
-            var center = new Point3d(
-                width.Value / 2,
-                length.Value / 2,
-                mainHeight.Value);
-            var hole = SketchBuilder.CreateCircle(
-                center,
-                neckRadius.Value - 2);
-            var circleShellPart = new Solid3d();
-            circleShellPart.Extrude(hole, -2, 0);
+            mainShellPart.Extrude(shellRectangle, -(mainHeight.Value - 4), 0);
 
             mainPart.BooleanOperation(BooleanOperationType.BoolSubtract, mainShellPart);
-            mainPart.BooleanOperation(BooleanOperationType.BoolSubtract, circleShellPart);
 
             return mainPart;
         }
 
         /// <summary>
-        /// Строит горлышко бутылки.
+        /// Строит круглую основную часть бутылки.
+        /// </summary>
+        /// <param name="mainRadius">Радиус основания бутылки.</param>
+        /// <param name="mainHeight">Высота основной части.</param>
+        /// <returns>Основная часть.</returns>
+        private static Solid3d BuildMain(
+            Parameter mainRadius,
+            Parameter mainHeight
+            )
+        {
+            var mainCenter = new Point3d(0, 0, 0);
+            var mainCircle = SketchBuilder.CreateCircle(mainCenter, mainRadius.Value);
+            var shellCenter = new Point3d(0, 0, 2);
+            var shellCircle = SketchBuilder.CreateCircle(
+                shellCenter,
+                mainRadius.Value - 2);
+
+            var mainPart = new Solid3d();
+            mainPart.Extrude(mainCircle, mainHeight.Value, 0);
+            var shellPart = new Solid3d();
+            shellPart.Extrude(shellCircle, mainHeight.Value - 4, 0);
+
+            mainPart.BooleanOperation(BooleanOperationType.BoolSubtract, shellPart);
+
+            return mainPart;
+        }
+
+        /// <summary>
+        /// Строит круглое горлышко.
         /// </summary>
         /// <param name="neckHeight">Высота горлышка.</param>
         /// <param name="neckRadius">Радиус горлышка.</param>
-        /// <param name="width">Ширина основной части.</param>
-        /// <param name="length">Длина основной части.</param>
         /// <param name="mainHeight">Высота основной части.</param>
         /// <returns>Горлышко бутылки.</returns>
         private static Solid3d BuildNeck(
             Parameter neckHeight,
             Parameter neckRadius,
-            Parameter width,
-            Parameter length,
             Parameter mainHeight)
         {
-            var center = new Point3d(
-                width.Value / 2,
-                length.Value / 2,
-                mainHeight.Value);
+            var center = new Point3d(0, 0, mainHeight.Value);
             var circle = SketchBuilder.CreateCircle(
                 center,
                 neckRadius.Value);
@@ -144,6 +177,84 @@
             neck.BooleanOperation(BooleanOperationType.BoolSubtract, shell);
 
             return neck;
+        }
+
+        /// <summary>
+        /// Строит прямоугольное горлышко.
+        /// </summary>
+        /// <param name="neckHeight">Высота горлышка.</param>
+        /// <param name="neckLength">Длина горлышка.</param>
+        /// <param name="neckWidth">Ширина горлышка.</param>
+        /// <param name="mainHeight">Высота основной части.</param>
+        /// <returns>Прямоугольное горлышко.</returns>
+        private static Solid3d BuildNeck(
+            Parameter neckHeight,
+            Parameter neckLength,
+            Parameter neckWidth,
+            Parameter mainHeight
+        )
+        {
+            var center = new Point3d(0, 0, mainHeight.Value);
+            var circle = SketchBuilder.CreateRectangle(
+            neckWidth.Value, neckLength.Value, center);
+            var neck = new Solid3d();
+            neck.Extrude(circle, -neckHeight.Value, 0);
+
+            var shellRectangle = SketchBuilder.CreateRectangle(
+                neckWidth.Value - 2,
+                neckLength.Value - 2,
+                center);
+            var shell = new Solid3d();
+            shell.Extrude(shellRectangle, -neckHeight.Value, 0);
+
+            neck.BooleanOperation(BooleanOperationType.BoolSubtract, shell);
+
+            return neck;
+        }
+
+        /// <summary>
+        /// Создает прямоугольный Solid3d для вырезания отверстия.
+        /// </summary>
+        /// <param name="neckLength">Длина горлышка.</param>
+        /// <param name="neckWidth">Ширина горлышка.</param>
+        /// <param name="mainHeight">Высота основной части.</param>
+        /// <returns>Прямоугольный Solid3d для вырезания отверстия.</returns>
+        private static Solid3d BuildShellSolid(
+            Parameter neckLength,
+            Parameter neckWidth,
+            Parameter mainHeight
+        )
+        {
+            var shellCenter = new Point3d(0, 0, mainHeight.Value);
+            var shellSketch = SketchBuilder.CreateRectangle(
+                neckWidth.Value,
+                neckLength.Value,
+                shellCenter);
+
+            var shellSolid = new Solid3d();
+            shellSolid.Extrude(shellSketch, 2, 0);
+            return shellSolid;
+        }
+
+        /// <summary>
+        /// Создает круглый Solid3d для вырезания отверстия.
+        /// </summary>
+        /// <param name="neckRadius">Радиус горлышка.</param>
+        /// <param name="mainHeight">Высота основной части.</param>
+        /// <returns>Круглый Solid3d для вырезания отверстия.</returns>
+        private static Solid3d BuildShellSolid(
+            Parameter neckRadius,
+            Parameter mainHeight
+        )
+        {
+            var shellCenter = new Point3d(0, 0, mainHeight.Value);
+            var shellSketch = SketchBuilder.CreateCircle(
+                shellCenter,
+                neckRadius.Value - 2);
+
+            var shellSolid = new Solid3d();
+            shellSolid.Extrude(shellSketch, -2, 0);
+            return shellSolid;
         }
     }
 }

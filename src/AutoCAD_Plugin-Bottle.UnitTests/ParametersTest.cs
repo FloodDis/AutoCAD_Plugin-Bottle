@@ -12,7 +12,7 @@
             var expectedMax = 250;
 
             // Act
-            var actualParameter = parameters[BottleParameterType.MainPartLength];
+            var actualParameter = parameters[BottleParameterType.MainLength];
             var actualMin = actualParameter.MinValue;
             var actualMax = actualParameter.MaxValue;
 
@@ -34,7 +34,7 @@
             var expectedMax = 250;
 
             // Act
-            var actualParameter = parameters[BottleParameterType.MainPartWidth];
+            var actualParameter = parameters[BottleParameterType.MainWidth];
             var actualMin = actualParameter.MinValue;
             var actualMax = actualParameter.MaxValue;
 
@@ -120,8 +120,8 @@
             var expected = 100;
 
             // Act
-            parameters.SetValue(BottleParameterType.MainPartLength, expected);
-            var actual = parameters[BottleParameterType.MainPartLength].Value;
+            parameters.SetValue(BottleParameterType.MainLength, expected);
+            var actual = parameters[BottleParameterType.MainLength].Value;
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -135,8 +135,8 @@
             var expected = 100;
 
             // Act
-            parameters.SetValue(BottleParameterType.MainPartWidth, expected);
-            var actual = parameters[BottleParameterType.MainPartWidth].Value;
+            parameters.SetValue(BottleParameterType.MainWidth, expected);
+            var actual = parameters[BottleParameterType.MainWidth].Value;
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -179,8 +179,8 @@
             // Arrange
             var parameters = new Parameters();
             var expected = 10;
-            parameters.SetValue(BottleParameterType.MainPartLength, 100);
-            parameters.SetValue(BottleParameterType.MainPartWidth, 100);
+            parameters.SetValue(BottleParameterType.MainLength, 100);
+            parameters.SetValue(BottleParameterType.MainWidth, 100);
 
             // Act
             parameters.SetValue(BottleParameterType.NeckRadius, expected);
@@ -195,14 +195,14 @@
         {
             // Arrange
             var parameters = new Parameters();
-            var parameter = parameters[BottleParameterType.MainPartLength];
+            var parameter = parameters[BottleParameterType.MainLength];
             var expected = 1;
             var expectedMessage =
                 $"Параметр должен быть в диапазоне {parameter.MinValue}-{parameter.MaxValue}.\n";
 
             // Assert & Act
             var exception = Assert.Throws<AggregateException>(
-                () => parameters.SetValue(BottleParameterType.MainPartLength, expected));
+                () => parameters.SetValue(BottleParameterType.MainLength, expected));
 
             Assert.AreEqual(expectedMessage, exception.InnerExceptions[0].Message);
         }
@@ -212,14 +212,14 @@
         {
             // Arrange
             var parameters = new Parameters();
-            var parameter = parameters[BottleParameterType.MainPartWidth];
+            var parameter = parameters[BottleParameterType.MainWidth];
             var expected = 1;
             var expectedMessage =
                 $"Параметр должен быть в диапазоне {parameter.MinValue}-{parameter.MaxValue}.\n";
 
             // Assert & Act
             var exception = Assert.Throws<AggregateException>(
-                () => parameters.SetValue(BottleParameterType.MainPartWidth, expected));
+                () => parameters.SetValue(BottleParameterType.MainWidth, expected));
 
             Assert.AreEqual(expectedMessage, exception.InnerExceptions[0].Message);
         }
@@ -297,8 +297,8 @@
             var expectedMessage =
                 "Параметр должен быть минимум" +
                 " в 2 раза меньше длины основной части.\n";
-            parameters.SetValue(BottleParameterType.MainPartWidth, 100);
-            parameters.SetValue(BottleParameterType.MainPartLength, 10);
+            parameters.SetValue(BottleParameterType.MainWidth, 100);
+            parameters.SetValue(BottleParameterType.MainLength, 10);
 
 
             // Assert & Act
@@ -321,8 +321,8 @@
             var expectedMessage =
                 "Параметр должен быть минимум" +
                 " в 2 раза меньше ширины основной части.\n";
-            parameters.SetValue(BottleParameterType.MainPartWidth, 10);
-            parameters.SetValue(BottleParameterType.MainPartLength, 100);
+            parameters.SetValue(BottleParameterType.MainWidth, 10);
+            parameters.SetValue(BottleParameterType.MainLength, 100);
 
 
             // Assert & Act
@@ -347,8 +347,8 @@
                 " в 2 раза меньше ширины основной части." +
                 "Параметр должен быть минимум" +
                 " в 2 раза меньше длины основной части.\n";
-            parameters.SetValue(BottleParameterType.MainPartWidth, 10);
-            parameters.SetValue(BottleParameterType.MainPartLength, 10);
+            parameters.SetValue(BottleParameterType.MainWidth, 10);
+            parameters.SetValue(BottleParameterType.MainLength, 10);
 
 
             // Assert & Act
