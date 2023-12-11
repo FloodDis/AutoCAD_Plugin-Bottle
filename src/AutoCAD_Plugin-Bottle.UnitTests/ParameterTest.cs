@@ -77,5 +77,21 @@
                 () => parameter.Value = value);
             Assert.AreEqual(excpectedMessage, exception.Message);
         }
+
+        [Test(Description = "Тест метода ReturnToDefaultValue")]
+        public void ReturnToDefaultValueTest()
+        {
+            // Arrange
+            var parameter = new Parameter(10, 100);
+            parameter.Value = 50;
+            var expected = 10;
+
+            // Act
+            parameter.ReturnToDefaultValue();
+            var actual = parameter.Value;
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
