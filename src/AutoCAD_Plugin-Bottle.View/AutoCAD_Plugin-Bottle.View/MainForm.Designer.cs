@@ -239,6 +239,7 @@
             this.NeckLengthTextBox.Size = new System.Drawing.Size(72, 20);
             this.NeckLengthTextBox.TabIndex = 17;
             this.NeckLengthTextBox.TextChanged += new System.EventHandler(this.OnTextChanged);
+            this.NeckLengthTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             // 
             // NeckWidthLabel
             // 
@@ -259,6 +260,7 @@
             this.NeckWidthTextBox.Size = new System.Drawing.Size(72, 20);
             this.NeckWidthTextBox.TabIndex = 19;
             this.NeckWidthTextBox.TextChanged += new System.EventHandler(this.OnTextChanged);
+            this.NeckWidthTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             // 
             // MainRadiusLabel
             // 
@@ -279,6 +281,7 @@
             this.MainRadiusTextBox.Size = new System.Drawing.Size(72, 20);
             this.MainRadiusTextBox.TabIndex = 21;
             this.MainRadiusTextBox.TextChanged += new System.EventHandler(this.OnTextChanged);
+            this.MainRadiusTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             // 
             // NeckLengthRangeLabel
             // 
