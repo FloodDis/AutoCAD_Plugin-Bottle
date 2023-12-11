@@ -101,6 +101,9 @@
                 { BottleParameterType.NeckWidth, "Ширина горлышка" },
                 { BottleParameterType.MainRadius, "Радиус основной части" }
             };
+
+            RectangleMainRadioButton.Checked = true;
+            RoundNeckRadioButton.Checked = true;
         }
 
         /// <summary>
@@ -227,31 +230,25 @@
                 _parameters[BottleParameterType.MainLength].ReturnToDefaultValue();
                 _parameters[BottleParameterType.MainWidth].ReturnToDefaultValue();
                 MainLengthTextBox.Text = "";
-                MainLengthTextBox.BackColor = _disabledColor;
                 MainWidthTextBox.Text = "";
-                MainWidthTextBox.BackColor = _disabledColor;
             }
             else
             {
                 _parameters[BottleParameterType.MainRadius].ReturnToDefaultValue();
                 MainRadiusTextBox.Text = "";
-                MainRadiusTextBox.BackColor = _disabledColor;
             }
 
             if (_isNeckRectangle)
             {
                 _parameters[BottleParameterType.NeckRadius].ReturnToDefaultValue();
                 NeckRadiusTextBox.Text = "";
-                NeckRadiusTextBox.BackColor = _disabledColor;
             }
             else
             {
                 _parameters[BottleParameterType.NeckLength].ReturnToDefaultValue();
                 _parameters[BottleParameterType.NeckWidth].ReturnToDefaultValue();
                 NeckLengthTextBox.Text = "";
-                NeckLengthTextBox.BackColor = _disabledColor;
                 NeckWidthTextBox.Text = "";
-                NeckWidthTextBox.BackColor = _disabledColor;
             }
         }
 
@@ -270,7 +267,15 @@
             {
                 if (_parameterControls[currentParameter].Text == "")
                 {
-                    _parameterControls[currentParameter].BackColor = _defaultColor;
+                    if (_parameterControls[currentParameter].Enabled)
+                    {
+                        _parameterControls[currentParameter].BackColor = _defaultColor;
+                    }
+                    else
+                    {
+                        _parameterControls[currentParameter].BackColor = _disabledColor;
+                    }
+
                     _errors[currentParameter] = "";
                     return;
                 }
