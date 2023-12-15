@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCAD_Plugin-Bottle.Conne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCAD_Plugin-Bottle.View", "AutoCAD_Plugin-Bottle.View\AutoCAD_Plugin-Bottle.View\AutoCAD_Plugin-Bottle.View.csproj", "{55173750-D87F-4E49-8CFC-DDE95587DEA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCAD_Plugin-Bottle.UnitTests", "AutoCAD_Plugin-Bottle.UnitTests\AutoCAD_Plugin-Bottle.UnitTests.csproj", "{6B129477-0EA7-4766-AE04-959F6B5096DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCAD_Plugin-Bottle.UnitTests", "AutoCAD_Plugin-Bottle.UnitTests\AutoCAD_Plugin-Bottle.UnitTests.csproj", "{6B129477-0EA7-4766-AE04-959F6B5096DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCAD_Plugin-Bottle.StressTest", "AutoCAD_Plugin-Bottle.StressTest\AutoCAD_Plugin-Bottle.StressTest.csproj", "{5C4621DC-1F2D-4D99-A16B-EBD5235F1AFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{6B129477-0EA7-4766-AE04-959F6B5096DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B129477-0EA7-4766-AE04-959F6B5096DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B129477-0EA7-4766-AE04-959F6B5096DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C4621DC-1F2D-4D99-A16B-EBD5235F1AFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C4621DC-1F2D-4D99-A16B-EBD5235F1AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C4621DC-1F2D-4D99-A16B-EBD5235F1AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C4621DC-1F2D-4D99-A16B-EBD5235F1AFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
