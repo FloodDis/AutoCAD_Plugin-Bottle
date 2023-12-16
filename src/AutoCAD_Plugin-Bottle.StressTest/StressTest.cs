@@ -4,17 +4,27 @@
     using System.Diagnostics;
     using System.IO;
     using AutoCAD_Plugin_Bottle.Model;
+    using Autodesk.AutoCAD.Runtime;
     using Microsoft.VisualBasic.Devices;
 
-    internal class Program
+    public class StressTest
     {
-        static void Main(string[] args)
+        [CommandMethod("StressTest")]
+        public void Test()
         {
-            var maxQuantity = 10000;
+            var maxQuantity = 40000;
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             var parameters = new Parameters();
-            var streamWriter = new StreamWriter($"log.txt", true);
+            foreach (BottleParameterType currentParameter
+                in Enum.GetValues(typeof(BottleParameterType)))
+            {
+                var parameter = parameters[currentParameter];
+                var value = (parameter.MaxValue - parameter.MinValue) / 2;
+                parameters.SetValue(currentParameter, value);
+            }
+
+            var streamWriter = new StreamWriter($"log.txt", false);
             Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
             var count = 0;
             while (count != maxQuantity)
