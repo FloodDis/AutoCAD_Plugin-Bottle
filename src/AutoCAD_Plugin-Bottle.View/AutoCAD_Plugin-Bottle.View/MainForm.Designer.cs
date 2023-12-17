@@ -328,10 +328,10 @@
             this.MainPartFormGroupBox.Controls.Add(this.RoundMainRadioButton);
             this.MainPartFormGroupBox.Location = new System.Drawing.Point(32, 310);
             this.MainPartFormGroupBox.Name = "MainPartFormGroupBox";
-            this.MainPartFormGroupBox.Size = new System.Drawing.Size(134, 71);
+            this.MainPartFormGroupBox.Size = new System.Drawing.Size(146, 71);
             this.MainPartFormGroupBox.TabIndex = 27;
             this.MainPartFormGroupBox.TabStop = false;
-            this.MainPartFormGroupBox.Text = "Форма главной части";
+            this.MainPartFormGroupBox.Text = "Форма основной части";
             // 
             // RectangleMainRadioButton
             // 
@@ -349,7 +349,7 @@
             // 
             this.NeckFormGroupBox.Controls.Add(this.RectangleNeckRadioButton);
             this.NeckFormGroupBox.Controls.Add(this.RoundNeckRadioButton);
-            this.NeckFormGroupBox.Location = new System.Drawing.Point(175, 310);
+            this.NeckFormGroupBox.Location = new System.Drawing.Point(184, 310);
             this.NeckFormGroupBox.Name = "NeckFormGroupBox";
             this.NeckFormGroupBox.Size = new System.Drawing.Size(134, 71);
             this.NeckFormGroupBox.TabIndex = 28;
