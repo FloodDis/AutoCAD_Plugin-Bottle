@@ -12,7 +12,6 @@
         /// Создает эскиз в виде окружности.
         /// </summary>
         /// <param name="center">Центр окружности.</param>
-        /// <param name="normal">Нормаль окружности.</param>
         /// <param name="radius">Радиус окружности.</param>
         /// <returns>Созданная окружность.</returns>
         public static Region CreateCircle(Point3d center, double radius)
