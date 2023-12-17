@@ -516,7 +516,7 @@
             Assert.AreEqual(expectedMessage, exception.InnerExceptions[0].Message);
         }
 
-        [Test(Description = "Тест функции SetValue(провал, Ширна горлышка)")]
+        [Test(Description = "Тест функции SetValue(провал, Ширина горлышка)")]
         public void SetValueFailureNeckWidth()
         {
             // Arrange
