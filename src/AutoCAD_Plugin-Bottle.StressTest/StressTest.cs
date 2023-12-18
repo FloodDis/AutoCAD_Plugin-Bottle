@@ -14,7 +14,6 @@
         {
             var maxQuantity = 40000;
             var stopWatch = new Stopwatch();
-            stopWatch.Start();
             var parameters = new Parameters();
             foreach (BottleParameterType currentParameter
                 in Enum.GetValues(typeof(BottleParameterType)))
@@ -24,19 +23,22 @@
                 parameters.SetValue(currentParameter, value);
             }
 
-            var streamWriter = new StreamWriter($"log.txt", false);
+            var streamWriter = new StreamWriter($"log.csv", false);
             Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
             var count = 0;
             while (count != maxQuantity)
             {
                 const double gigabyteInByte = 0.000000000931322574615478515625;
+                stopWatch.Start();
                 Builder.BuildBottle(parameters);
+                stopWatch.Stop();
                 var computerInfo = new ComputerInfo();
                 var usedMemory = (computerInfo.TotalPhysicalMemory
                                   - computerInfo.AvailablePhysicalMemory)
                                  * gigabyteInByte;
                 streamWriter.WriteLine(
-                    $"{++count}\t{stopWatch.Elapsed:hh\\:mm\\:ss}\t{usedMemory}");
+                    $"{++count};{stopWatch.ElapsedMilliseconds};{usedMemory}");
+                stopWatch.Reset();
                 streamWriter.Flush();
             }
 
