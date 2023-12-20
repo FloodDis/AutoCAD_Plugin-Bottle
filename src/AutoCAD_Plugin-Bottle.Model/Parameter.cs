@@ -6,7 +6,7 @@
     /// Параметр.
     /// </summary>
     public class Parameter
-	{
+    {
         /// <summary>
         /// Значение параметра.
         /// </summary>
@@ -39,12 +39,13 @@
         public double Value
         {
             get => _value;
-			set
-			{
-				Validate(value);
-				_value = value;
-			}
-		}
+            set
+            {
+                ValidateRange();
+                ValidateValue(value);
+                _value = value;
+            }
+        }
 
         /// <summary>
         /// Возвращает параметр к дефолтному значению.
@@ -57,13 +58,25 @@
         /// <summary>
         /// Валидирует параметр.
         /// </summary>
-        private void Validate(double value)
-		{
-			if (value < MinValue || value > MaxValue)
+        private void ValidateValue(double value)
+        {
+            if (value < MinValue || value > MaxValue)
             {
-				throw new ArgumentException(
+                throw new ArgumentException(
                     $"Параметр должен быть в диапазоне {MinValue}-{MaxValue}.\n");
-			}
-		}
-	}
+            }
+        }
+
+        /// <summary>
+        /// Валидирует максимальное и минимальное значение параметра.
+        /// </summary>
+        private void ValidateRange()
+        {
+            if (MinValue > MaxValue)
+            {
+                throw new ArgumentException(
+                    "Минимальное значение должно быть меньше максимального.");
+            }
+        }
+    }
 }
