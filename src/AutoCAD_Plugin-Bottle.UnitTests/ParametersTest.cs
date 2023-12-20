@@ -160,69 +160,29 @@
             Assert.AreEqual(expectedMessage, exception.InnerExceptions[0].Message);
         }
 
-        [Test(Description =
-            "Тест функции SetValue(провал, Радиус горлышка," +
-            " не соответствует условию зав. парам., ширина-успех, длина-провал)")
-        ]
-        public void SetValueFailureNeckRadiusOne()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var parameter = parameters[BottleParameterType.NeckRadius];
-            var expected = 10;
-            var expectedMessage =
-                "Параметр должен быть минимум" +
-                " в 2 раза меньше длины основной части.\n";
-            parameters.SetValue(BottleParameterType.MainWidth, 100);
-            parameters.SetValue(BottleParameterType.MainLength, 10);
-
-            // Assert & Act
-            var exception = Assert.Throws<AggregateException>(
-                () => parameters.SetValue(BottleParameterType.NeckRadius, expected));
-
-            Assert.AreEqual(expectedMessage, exception.InnerExceptions[0].Message);
-        }
-
-        [Test(Description =
-            "Тест функции SetValue(провал, Радиус горлышка," +
-            " не соответствует условию зав. парам., ширина-провал, длина-успех)")
-        ]
-        public void SetValueFailureNeckRadiusTwo()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var parameter = parameters[BottleParameterType.NeckRadius];
-            var expected = 10;
-            var expectedMessage =
-                "Параметр должен быть минимум" +
-                " в 2 раза меньше ширины основной части.\n";
-            parameters.SetValue(BottleParameterType.MainWidth, 10);
-            parameters.SetValue(BottleParameterType.MainLength, 100);
-
-            // Assert & Act
-            var exception = Assert.Throws<AggregateException>(
-                () => parameters.SetValue(BottleParameterType.NeckRadius, expected));
-
-            Assert.AreEqual(expectedMessage, exception.InnerExceptions[0].Message);
-        }
-
-        [Test(Description =
-            "Тест функции SetValue(провал, Радиус горлышка," +
-            " не соответствует условию зав. парам., ширина-провал, длина-провал)")
-        ]
-        public void SetValueFailureNeckRadiusThree()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var parameter = parameters[BottleParameterType.NeckRadius];
-            var expected = 10;
-            var expectedMessage =
-                "Параметр должен быть минимум" +
+        [Test(Description = "Тест функции SetValue(провал, Радиус горлышка)" +
+            "не соответствует условию зав. парам.")]
+        [TestCase(10, 100, 10, "Параметр должен быть минимум" +
+                " в 2 раза меньше длины основной части.\n")]
+        [TestCase(10, 10, 100, "Параметр должен быть минимум" +
+                " в 2 раза меньше ширины основной части.\n")]
+        [TestCase(10, 10, 10, "Параметр должен быть минимум" +
                 " в 2 раза меньше ширины основной части." +
                 "Параметр должен быть минимум" +
-                " в 2 раза меньше длины основной части.\n";
-            parameters.SetValue(BottleParameterType.MainWidth, 10);
-            parameters.SetValue(BottleParameterType.MainLength, 10);
+                " в 2 раза меньше длины основной части.\n")]
+        public void SetValueFailureNeckRadius(
+            double value,
+            double width,
+            double length,
+            string message)
+        {
+            // Arrange
+            var parameters = new Parameters();
+            var parameter = parameters[BottleParameterType.NeckRadius];
+            var expected = value;
+            var expectedMessage = message;
+            parameters.SetValue(BottleParameterType.MainWidth, width);
+            parameters.SetValue(BottleParameterType.MainLength, length);
 
             // Assert & Act
             var exception = Assert.Throws<AggregateException>(
