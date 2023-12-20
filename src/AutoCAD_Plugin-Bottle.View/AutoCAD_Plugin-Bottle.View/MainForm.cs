@@ -169,54 +169,62 @@
         /// <summary>
         /// Изменяет доступные элементы управления на форме для основной части бутылки.
         /// </summary>
-        private void ChangeMainEnabledControls()
+        private void ChangeMainControls()
         {
             if (_isMainCircle)
             {
-                MainRadiusTextBox.Enabled = true;
-                MainLengthTextBox.Enabled = false;
-                MainWidthTextBox.Enabled = false;
+               TextBoxFlowLayoutPanel.Controls.Remove(MainLengthPanel);
+               TextBoxFlowLayoutPanel.Controls.Remove(MainWidthPanel);
 
-                MainRadiusTextBox.BackColor = _defaultColor;
-                MainLengthTextBox.BackColor = _disabledColor;
-                MainWidthTextBox.BackColor = _disabledColor;
+                if (!TextBoxFlowLayoutPanel.Controls.Contains(MainRadiusPanel))
+                {
+                    TextBoxFlowLayoutPanel.Controls.Add(MainRadiusPanel);
+                }
             }
             else
             {
-                MainRadiusTextBox.Enabled = false;
-                MainLengthTextBox.Enabled = true;
-                MainWidthTextBox.Enabled = true;
+                TextBoxFlowLayoutPanel.Controls.Remove(MainRadiusPanel);
 
-                MainRadiusTextBox.BackColor = _disabledColor;
-                MainLengthTextBox.BackColor = _defaultColor;
-                MainWidthTextBox.BackColor = _defaultColor;
+                if (!TextBoxFlowLayoutPanel.Controls.Contains(MainLengthPanel))
+                {
+                    TextBoxFlowLayoutPanel.Controls.Add(MainLengthPanel);
+                }
+
+                if (!TextBoxFlowLayoutPanel.Controls.Contains(MainWidthPanel))
+                {
+                    TextBoxFlowLayoutPanel.Controls.Add(MainWidthPanel);
+                }
             }
         }
 
         /// <summary>
         /// Изменяет доступные элементы управления на форме для горлышка бутылки.
         /// </summary>
-        private void ChangeNeckEnabledControls()
+        private void ChangeNeckControls()
         {
             if (_isNeckRectangle)
             {
-                NeckRadiusTextBox.Enabled = false;
-                NeckLengthTextBox.Enabled = true;
-                NeckWidthTextBox.Enabled = true;
+                TextBoxFlowLayoutPanel.Controls.Remove(NeckRadiusPanel);
 
-                NeckRadiusTextBox.BackColor = _disabledColor;
-                NeckLengthTextBox.BackColor = _defaultColor;
-                NeckWidthTextBox.BackColor = _defaultColor;
+                if (!TextBoxFlowLayoutPanel.Controls.Contains(NeckLengthPanel))
+                {
+                    TextBoxFlowLayoutPanel.Controls.Add(NeckLengthPanel);
+                }
+
+                if (!TextBoxFlowLayoutPanel.Controls.Contains(NeckWidthPanel))
+                {
+                    TextBoxFlowLayoutPanel.Controls.Add(NeckWidthPanel);
+                }
             }
             else
             {
-                NeckRadiusTextBox.Enabled = true;
-                NeckLengthTextBox.Enabled = false;
-                NeckWidthTextBox.Enabled = false;
+                TextBoxFlowLayoutPanel.Controls.Remove(NeckLengthPanel);
+                TextBoxFlowLayoutPanel.Controls.Remove(NeckWidthPanel);
 
-                NeckRadiusTextBox.BackColor = _defaultColor;
-                NeckLengthTextBox.BackColor = _disabledColor;
-                NeckWidthTextBox.BackColor = _disabledColor;
+                if (!TextBoxFlowLayoutPanel.Controls.Contains(NeckRadiusPanel))
+                {
+                    TextBoxFlowLayoutPanel.Controls.Add(NeckRadiusPanel);
+                }
             }
         }
 
@@ -328,8 +336,6 @@
             }
 
             ClearDisabledParameters();
-            _parameters.IsMainCircle = _isMainCircle;
-            _parameters.IsNeckRectangle = _isNeckRectangle;
             Builder.BuildBottle(_parameters);
             ClearForm();
         }
@@ -342,7 +348,7 @@
         private void RoundMainRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             _isMainCircle = true;
-            ChangeMainEnabledControls();
+            ChangeMainControls();
             ClearDisabledParameters();
             _parameters.IsMainCircle = _isMainCircle;
         }
@@ -355,7 +361,7 @@
         private void RectangleMainRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             _isMainCircle = false;
-            ChangeMainEnabledControls();
+            ChangeMainControls();
             ClearDisabledParameters();
             _parameters.IsMainCircle = _isMainCircle;
         }
@@ -368,7 +374,7 @@
         private void RoundNeckRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             _isNeckRectangle = false;
-            ChangeNeckEnabledControls();
+            ChangeNeckControls();
             ClearDisabledParameters();
             _parameters.IsNeckRectangle = _isNeckRectangle;
         }
@@ -381,7 +387,7 @@
         private void RectangleNeckRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             _isNeckRectangle = true;
-            ChangeNeckEnabledControls();
+            ChangeNeckControls();
             ClearDisabledParameters();
             _parameters.IsNeckRectangle = _isNeckRectangle;
         }
