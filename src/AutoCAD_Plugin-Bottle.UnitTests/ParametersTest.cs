@@ -3,169 +3,24 @@
     [TestFixture]
     public class ParametersTest
     {
-        [Test(Description = "Тест перегрузки оператора [] (Длина)")]
-        public void BracketsOperatorLength()
+        [Test(Description = "Тест перегрузки оператора []")]
+        [TestCase(BottleParameterType.MainLength, 10, 250)]
+        [TestCase(BottleParameterType.MainWidth, 10, 250)]
+        [TestCase(BottleParameterType.MainHeight, 10, 250)]
+        [TestCase(BottleParameterType.NeckHeight, 10, 40)]
+        [TestCase(BottleParameterType.NeckRadius, 5, 20)]
+        [TestCase(BottleParameterType.NeckLength, 5, 20)]
+        [TestCase(BottleParameterType.NeckWidth, 5, 20)]
+        [TestCase(BottleParameterType.MainRadius, 10, 125)]
+        public void BracketsOperator(BottleParameterType type, double min, double max)
         {
             // Arrange
             var parameters = new Parameters();
-            var expectedMin = 10;
-            var expectedMax = 250;
+            var expectedMin = min;
+            var expectedMax = max;
 
             // Act
-            var actualParameter = parameters[BottleParameterType.MainLength];
-            var actualMin = actualParameter.MinValue;
-            var actualMax = actualParameter.MaxValue;
-
-            // Assert
-            Assert.Multiple(
-                () =>
-                {
-                    Assert.AreEqual(expectedMin, actualMin);
-                    Assert.AreEqual(expectedMax, actualMax);
-                });
-        }
-
-        [Test(Description = "Тест перегрузки оператора [] (Ширина)")]
-        public void BracketsOperatorWidth()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var expectedMin = 10;
-            var expectedMax = 250;
-
-            // Act
-            var actualParameter = parameters[BottleParameterType.MainWidth];
-            var actualMin = actualParameter.MinValue;
-            var actualMax = actualParameter.MaxValue;
-
-            // Assert
-            Assert.Multiple(
-                () =>
-                {
-                    Assert.AreEqual(expectedMin, actualMin);
-                    Assert.AreEqual(expectedMax, actualMax);
-                });
-        }
-
-        [Test(Description = "Тест перегрузки оператора [] (Высота основной части)")]
-        public void BracketsOperatorMainHeight()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var expectedMin = 10;
-            var expectedMax = 250;
-
-            // Act
-            var actualParameter = parameters[BottleParameterType.MainHeight];
-            var actualMin = actualParameter.MinValue;
-            var actualMax = actualParameter.MaxValue;
-
-            // Assert
-            Assert.Multiple(
-                () =>
-                {
-                    Assert.AreEqual(expectedMin, actualMin);
-                    Assert.AreEqual(expectedMax, actualMax);
-                });
-        }
-
-        [Test(Description = "Тест перегрузки оператора [] (Высота горлышка)")]
-        public void BracketsOperatorNeckHeight()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var expectedMin = 10;
-            var expectedMax = 40;
-
-            // Act
-            var actualParameter = parameters[BottleParameterType.NeckHeight];
-            var actualMin = actualParameter.MinValue;
-            var actualMax = actualParameter.MaxValue;
-
-            // Assert
-            Assert.Multiple(
-                () =>
-                {
-                    Assert.AreEqual(expectedMin, actualMin);
-                    Assert.AreEqual(expectedMax, actualMax);
-                });
-        }
-        [Test(Description = "Тест перегрузки оператора [] (Радиус горлышка)")]
-        public void BracketsOperatorNeckRadius()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var expectedMin = 5;
-            var expectedMax = 20;
-
-            // Act
-            var actualParameter = parameters[BottleParameterType.NeckRadius];
-            var actualMin = actualParameter.MinValue;
-            var actualMax = actualParameter.MaxValue;
-
-            // Assert
-            Assert.Multiple(
-                () =>
-                {
-                    Assert.AreEqual(expectedMin, actualMin);
-                    Assert.AreEqual(expectedMax, actualMax);
-                });
-        }
-
-        [Test(Description = "Тест перегрузки оператора [] (Длина горлышка)")]
-        public void BracketsOperatorNeckLength()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var expectedMin = 5;
-            var expectedMax = 20;
-
-            // Act
-            var actualParameter = parameters[BottleParameterType.NeckLength];
-            var actualMin = actualParameter.MinValue;
-            var actualMax = actualParameter.MaxValue;
-
-            // Assert
-            Assert.Multiple(
-                () =>
-                {
-                    Assert.AreEqual(expectedMin, actualMin);
-                    Assert.AreEqual(expectedMax, actualMax);
-                });
-        }
-
-        [Test(Description = "Тест перегрузки оператора [] (Ширина горлышка)")]
-        public void BracketsOperatorNeckWidth()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var expectedMin = 5;
-            var expectedMax = 20;
-
-            // Act
-            var actualParameter = parameters[BottleParameterType.NeckWidth];
-            var actualMin = actualParameter.MinValue;
-            var actualMax = actualParameter.MaxValue;
-
-            // Assert
-            Assert.Multiple(
-                () =>
-                {
-                    Assert.AreEqual(expectedMin, actualMin);
-                    Assert.AreEqual(expectedMax, actualMax);
-                });
-        }
-
-        [Test(Description = "Тест перегрузки оператора [] (Радиус основной части)")]
-        public void BracketsOperatorMainRadius()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var expectedMin = 10;
-            var expectedMax = 125;
-
-            // Act
-            var actualParameter = parameters[BottleParameterType.MainRadius];
+            var actualParameter = parameters[type];
             var actualMin = actualParameter.MinValue;
             var actualMax = actualParameter.MaxValue;
 
@@ -208,176 +63,58 @@
             Assert.AreEqual(expected, actual);
         }
 
-        [Test(Description = "Тест функции SetValue(успех, Длина)")]
-        public void SetValueSuccessLength()
+        [Test(Description = "Тест функции SetValue(успех)")]
+        [TestCase(BottleParameterType.MainLength, 100)]
+        [TestCase(BottleParameterType.MainWidth, 100)]
+        [TestCase(BottleParameterType.MainHeight, 100)]
+        [TestCase(BottleParameterType.NeckHeight, 20)]
+        [TestCase(BottleParameterType.NeckRadius, 10)]
+        [TestCase(BottleParameterType.NeckLength, 10)]
+        [TestCase(BottleParameterType.NeckWidth, 10)]
+        [TestCase(BottleParameterType.MainRadius, 50)]
+        public void SetValueSuccess(BottleParameterType type, double value)
         {
             // Arrange
             var parameters = new Parameters();
-            var expected = 100;
+            var expected = value;
+            if (type == BottleParameterType.NeckHeight)
+            {
+                parameters.SetValue(BottleParameterType.MainHeight, 100);
+            }
+            else if (type == BottleParameterType.NeckRadius)
+            {
+                parameters.SetValue(BottleParameterType.MainWidth, 100);
+                parameters.SetValue(BottleParameterType.MainLength, 100);
+            }
 
             // Act
-            parameters.SetValue(BottleParameterType.MainLength, expected);
-            var actual = parameters[BottleParameterType.MainLength].Value;
+            parameters.SetValue(type, expected);
+            var actual = parameters[type].Value;
 
             // Assert
             Assert.AreEqual(expected, actual);
         }
 
-        [Test(Description = "Тест функции SetValue(успех, Ширина)")]
-        public void SetValueSuccessWidth()
+        [Test(Description = "Тест SetValue(провал)")]
+        [TestCase(BottleParameterType.MainLength, 1)]
+        [TestCase(BottleParameterType.MainWidth, 1)]
+        [TestCase(BottleParameterType.MainHeight, 1)]
+        [TestCase(BottleParameterType.NeckLength, 1)]
+        [TestCase(BottleParameterType.NeckWidth, 1)]
+        [TestCase(BottleParameterType.MainRadius, 1)]
+
+        public void SetValueFailure(BottleParameterType type, double value)
         {
             // Arrange
             var parameters = new Parameters();
-            var expected = 100;
-
-            // Act
-            parameters.SetValue(BottleParameterType.MainWidth, expected);
-            var actual = parameters[BottleParameterType.MainWidth].Value;
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test(Description = "Тест функции SetValue(успех, Высота основной части)")]
-        public void SetValueSuccessMainHeight()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var expected = 100;
-
-            // Act
-            parameters.SetValue(BottleParameterType.MainHeight, expected);
-            var actual = parameters[BottleParameterType.MainHeight].Value;
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test(Description = "Тест функции SetValue(успех, Высота горлышка)")]
-        public void SetValueSuccessNeckHeight()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var expected = 20;
-            parameters.SetValue(BottleParameterType.MainHeight, 100);
-
-            // Act
-            parameters.SetValue(BottleParameterType.NeckHeight, expected);
-            var actual = parameters[BottleParameterType.NeckHeight].Value;
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test(Description = "Тест функции SetValue(успех, Радиус горлышка)")]
-        public void SetValueSuccessNeckRadius()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var expected = 10;
-            parameters.SetValue(BottleParameterType.MainLength, 100);
-            parameters.SetValue(BottleParameterType.MainWidth, 100);
-
-            // Act
-            parameters.SetValue(BottleParameterType.NeckRadius, expected);
-            var actual = parameters[BottleParameterType.NeckRadius].Value;
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test(Description = "Тест функции SetValue(успех, Длина горлышка)")]
-        public void SetValueSuccessNeckLength()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var expected = 10;
-
-            // Act
-            parameters.SetValue(BottleParameterType.NeckLength, expected);
-            var actual = parameters[BottleParameterType.NeckLength].Value;
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test(Description = "Тест функции SetValue(успех, Ширина горлышка)")]
-        public void SetValueSuccessNeckWidth()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var expected = 10;
-
-            // Act
-            parameters.SetValue(BottleParameterType.NeckWidth, expected);
-            var actual = parameters[BottleParameterType.NeckWidth].Value;
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test(Description = "Тест функции SetValue(успех, Радиус основной части)")]
-        public void SetValueSuccessMainRadius()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var expected = 50;
-
-            // Act
-            parameters.SetValue(BottleParameterType.MainRadius, expected);
-            var actual = parameters[BottleParameterType.MainRadius].Value;
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test(Description = "Тест функции SetValue(провал, Длина)")]
-        public void SetValueFailureLength()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var parameter = parameters[BottleParameterType.MainLength];
-            var expected = 1;
+            var parameter = parameters[type];
+            var expected = value;
             var expectedMessage =
                 $"Параметр должен быть в диапазоне {parameter.MinValue}-{parameter.MaxValue}.\n";
 
             // Assert & Act
             var exception = Assert.Throws<AggregateException>(
-                () => parameters.SetValue(BottleParameterType.MainLength, expected));
-
-            Assert.AreEqual(expectedMessage, exception.InnerExceptions[0].Message);
-        }
-
-        [Test(Description = "Тест функции SetValue(провал, Ширина)")]
-        public void SetValueFailureWidth()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var parameter = parameters[BottleParameterType.MainWidth];
-            var expected = 1;
-            var expectedMessage =
-                $"Параметр должен быть в диапазоне {parameter.MinValue}-{parameter.MaxValue}.\n";
-
-            // Assert & Act
-            var exception = Assert.Throws<AggregateException>(
-                () => parameters.SetValue(BottleParameterType.MainWidth, expected));
-
-            Assert.AreEqual(expectedMessage, exception.InnerExceptions[0].Message);
-        }
-
-        [Test(Description = "Тест функции SetValue(провал, Высота основной части)")]
-        public void SetValueFailureMainHeight()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var parameter = parameters[BottleParameterType.MainHeight];
-            var expected = 1;
-            var expectedMessage =
-                $"Параметр должен быть в диапазоне {parameter.MinValue}-{parameter.MaxValue}.\n";
-
-            // Assert & Act
-            var exception = Assert.Throws<AggregateException>(
-                () => parameters.SetValue(BottleParameterType.MainHeight, expected));
+                () => parameters.SetValue(type, expected));
 
             Assert.AreEqual(expectedMessage, exception.InnerExceptions[0].Message);
         }
@@ -394,7 +131,6 @@
             var expectedMessage =
                 $"Параметр должен быть в диапазоне {parameter.MinValue}-{parameter.MaxValue}.\n";
             parameters.SetValue(BottleParameterType.MainHeight, 100);
-
 
             // Assert & Act
             var exception = Assert.Throws<AggregateException>(
@@ -416,7 +152,6 @@
                 "Параметр должен быть минимум"
                 + " в 4 раза меньше высоты основной части.\n";
             parameters.SetValue(BottleParameterType.MainHeight, 40);
-
 
             // Assert & Act
             var exception = Assert.Throws<AggregateException>(
@@ -441,7 +176,6 @@
             parameters.SetValue(BottleParameterType.MainWidth, 100);
             parameters.SetValue(BottleParameterType.MainLength, 10);
 
-
             // Assert & Act
             var exception = Assert.Throws<AggregateException>(
                 () => parameters.SetValue(BottleParameterType.NeckRadius, expected));
@@ -464,7 +198,6 @@
                 " в 2 раза меньше ширины основной части.\n";
             parameters.SetValue(BottleParameterType.MainWidth, 10);
             parameters.SetValue(BottleParameterType.MainLength, 100);
-
 
             // Assert & Act
             var exception = Assert.Throws<AggregateException>(
@@ -491,61 +224,9 @@
             parameters.SetValue(BottleParameterType.MainWidth, 10);
             parameters.SetValue(BottleParameterType.MainLength, 10);
 
-
             // Assert & Act
             var exception = Assert.Throws<AggregateException>(
                 () => parameters.SetValue(BottleParameterType.NeckRadius, expected));
-
-            Assert.AreEqual(expectedMessage, exception.InnerExceptions[0].Message);
-        }
-
-        [Test(Description = "Тест функции SetValue(провал, Длина горлышка)")]
-        public void SetValueFailureNeckLength()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var parameter = parameters[BottleParameterType.NeckLength];
-            var expected = 1;
-            var expectedMessage =
-                $"Параметр должен быть в диапазоне {parameter.MinValue}-{parameter.MaxValue}.\n";
-
-            // Assert & Act
-            var exception = Assert.Throws<AggregateException>(
-                () => parameters.SetValue(BottleParameterType.NeckLength, expected));
-
-            Assert.AreEqual(expectedMessage, exception.InnerExceptions[0].Message);
-        }
-
-        [Test(Description = "Тест функции SetValue(провал, Ширина горлышка)")]
-        public void SetValueFailureNeckWidth()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var parameter = parameters[BottleParameterType.NeckWidth];
-            var expected = 1;
-            var expectedMessage =
-                $"Параметр должен быть в диапазоне {parameter.MinValue}-{parameter.MaxValue}.\n";
-
-            // Assert & Act
-            var exception = Assert.Throws<AggregateException>(
-                () => parameters.SetValue(BottleParameterType.NeckWidth, expected));
-
-            Assert.AreEqual(expectedMessage, exception.InnerExceptions[0].Message);
-        }
-
-        [Test(Description = "Тест функции SetValue(провал, Радиус основной части)")]
-        public void SetValueFailureMainRadius()
-        {
-            // Arrange
-            var parameters = new Parameters();
-            var parameter = parameters[BottleParameterType.MainRadius];
-            var expected = 1;
-            var expectedMessage =
-                $"Параметр должен быть в диапазоне {parameter.MinValue}-{parameter.MaxValue}.\n";
-
-            // Assert & Act
-            var exception = Assert.Throws<AggregateException>(
-                () => parameters.SetValue(BottleParameterType.MainRadius, expected));
 
             Assert.AreEqual(expectedMessage, exception.InnerExceptions[0].Message);
         }

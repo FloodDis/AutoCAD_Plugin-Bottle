@@ -48,34 +48,38 @@
             Assert.AreEqual(expected, actual);
         }
 
-        [Test(Description = "Тест свойства Value(провал, меньше минимума)")]
-        public void ValuePropertyFailureLess()
+        [Test(Description = 
+            "Тест свойства Value (провал, значение вне допустимого диапазона)")]
+        [TestCase(10, 100, 5)]
+        [TestCase(10, 100, 105)]
+        public void ValuePropertyFailureRange(double min, double max, double value)
         {
             // Arrange
-            var parameter = new Parameter(10, 100);
-            var value = 5;
-            var excpectedMessage =
+            var parameter = new Parameter(min, max);
+            var expectedMessage =
                 $"Параметр должен быть в диапазоне {parameter.MinValue}-{parameter.MaxValue}.\n";
 
             // Assert & Act
             var exception = Assert.Throws<ArgumentException>(
                  () => parameter.Value = value);
-            Assert.AreEqual(excpectedMessage, exception.Message);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
-        [Test(Description = "Тест свойства Value(провал, больше максимума)")]
-        public void ValuePropertyFailureMore()
+        [Test(Description =
+            "Тест свойства Value (провал, максимальное значение меньше минимального)")]
+        public void ValuePropertyFailureMinMax()
         {
             // Arrange
-            var parameter = new Parameter(10, 100);
-            var value = 105;
-            var excpectedMessage =
-                $"Параметр должен быть в диапазоне {parameter.MinValue}-{parameter.MaxValue}.\n";
+            var parameter = new Parameter(100, 10);
+            var value = 15;
+            var expectedMessage =
+                $"Минимальное значение должно быть меньше максимального.";
 
             // Assert & Act
             var exception = Assert.Throws<ArgumentException>(
-                () => parameter.Value = value);
-            Assert.AreEqual(excpectedMessage, exception.Message);
+                () => parameter.Value = value
+                );
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test(Description = "Тест метода ReturnToDefaultValue")]
