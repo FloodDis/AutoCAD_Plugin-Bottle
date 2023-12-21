@@ -142,7 +142,7 @@
                 in Enum.GetValues(typeof(BottleParameterType)))
             {
                 if (_parameterControls[parameterType].Text == ""
-                    && _parameterControls[parameterType].Enabled)
+                    && TextBoxFlowLayoutPanel.Controls.Contains(_parameterControls[parameterType]))
                 {
                     isEmpty = true;
                 }
@@ -173,8 +173,8 @@
         {
             if (_isMainCircle)
             {
-               TextBoxFlowLayoutPanel.Controls.Remove(MainLengthPanel);
-               TextBoxFlowLayoutPanel.Controls.Remove(MainWidthPanel);
+                TextBoxFlowLayoutPanel.Controls.Remove(MainLengthPanel);
+                TextBoxFlowLayoutPanel.Controls.Remove(MainWidthPanel);
 
                 if (!TextBoxFlowLayoutPanel.Controls.Contains(MainRadiusPanel))
                 {
