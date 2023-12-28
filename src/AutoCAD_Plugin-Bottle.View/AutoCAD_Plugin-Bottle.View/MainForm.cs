@@ -111,14 +111,11 @@
         /// </summary>
         private void ClearForm()
         {
-            MainLengthTextBox.Text = "";
-            MainWidthTextBox.Text = "";
-            MainHeightTextBox.Text = "";
-            NeckHeightTextBox.Text = "";
-            NeckRadiusTextBox.Text = "";
-            NeckWidthTextBox.Text = "";
-            NeckLengthTextBox.Text = "";
-            MainRadiusTextBox.Text = "";
+            foreach (BottleParameterType type
+                in Enum.GetValues(typeof(BottleParameterType)))
+            {
+                _parameterControls[type].Text = "";
+            }
         }
 
         /// <summary>
@@ -176,6 +173,9 @@
                 TextBoxFlowLayoutPanel.Controls.Remove(MainLengthPanel);
                 TextBoxFlowLayoutPanel.Controls.Remove(MainWidthPanel);
 
+                _parameters[BottleParameterType.MainLength].ReturnToDefaultValue();
+                _parameters[BottleParameterType.MainWidth].ReturnToDefaultValue();
+
                 if (!TextBoxFlowLayoutPanel.Controls.Contains(MainRadiusPanel))
                 {
                     TextBoxFlowLayoutPanel.Controls.Add(MainRadiusPanel);
@@ -184,6 +184,7 @@
             else
             {
                 TextBoxFlowLayoutPanel.Controls.Remove(MainRadiusPanel);
+                _parameters[BottleParameterType.MainRadius].ReturnToDefaultValue();
 
                 if (!TextBoxFlowLayoutPanel.Controls.Contains(MainLengthPanel))
                 {
